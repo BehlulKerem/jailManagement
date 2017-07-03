@@ -158,10 +158,14 @@ public class loginUI extends javax.swing.JFrame {
                 String isim = rs.getString("isim");
                 count++;
                 jLabel3.setText(isim+" Hosgeldin!");
-                adminPage slide = new adminPage();
-                slide.setVisible(true);
-                dispose();
-                
+                if(isim.equals("admin")){
+                    adminPage slide = new adminPage();
+                    slide.setVisible(true);
+                    dispose();
+                }
+                else{
+                    dispose();
+                }
             }
             rs.close();
             st.close();
