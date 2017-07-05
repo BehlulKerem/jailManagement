@@ -21,7 +21,7 @@ public class jdbc {
     {
       Class.forName("org.postgresql.Driver");
       String url = "jdbc:postgresql://127.0.0.1:5432/jailmanage";
-      conn = DriverManager.getConnection(url,"postgres", "12345");
+      conn = DriverManager.getConnection(url,"postgres", "monopril12");
     }
     catch (ClassNotFoundException e)
     {
