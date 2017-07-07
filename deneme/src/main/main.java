@@ -4,9 +4,11 @@
  * and open the template in the editor.
  */
 package main;
+import de.javasoft.plaf.synthetica.SyntheticaAluOxideLookAndFeel;
 import java.sql.DriverManager;
 import java.sql.Connection;
 import java.sql.SQLException;
+import javax.swing.UIManager;
 
 /**
  *
@@ -18,6 +20,14 @@ public class main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        try 
+        {
+            UIManager.setLookAndFeel(new SyntheticaAluOxideLookAndFeel());
+        } 
+        catch (Exception e) 
+        {
+         e.printStackTrace();
+        }
                 loginUI login = new loginUI();
                 login.setVisible(true);
     }
