@@ -154,6 +154,7 @@ public Connection conn = null;
             }
         };
         jButton9 = new javax.swing.JButton();
+        jCheckBox1 = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Personel");
@@ -520,7 +521,6 @@ public Connection conn = null;
         jPanel1.add(jComboBox1);
         jComboBox1.setBounds(510, 10, 112, 20);
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jComboBox2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBox2ActionPerformed(evt);
@@ -541,11 +541,9 @@ public Connection conn = null;
         jPanel1.add(jLabel9);
         jLabel9.setBounds(440, 70, 60, 14);
 
-        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jPanel1.add(jComboBox3);
         jComboBox3.setBounds(300, 70, 110, 20);
 
-        jComboBox4.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jPanel1.add(jComboBox4);
         jComboBox4.setBounds(510, 70, 114, 20);
 
@@ -599,6 +597,15 @@ public Connection conn = null;
         });
         jPanel1.add(jButton9);
         jButton9.setBounds(540, 110, 90, 30);
+
+        jCheckBox1.setText("Baş Gardiyan");
+        jCheckBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBox1ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jCheckBox1);
+        jCheckBox1.setBounds(20, 100, 120, 23);
 
         jTabbedPane1.addTab("Personel", jPanel1);
 
@@ -674,7 +681,20 @@ public Connection conn = null;
             ResultSet rs,rs2 = null;
             st = conn.createStatement();
         if(pozisyon.equals("Gardiyan")){
-            rs = st.executeQuery("insert into personel values("+ssn+",'"+isim+"','"+soyisim+"',"+maas+","+personelno+","+ssn+")"); 
+            String blok = jComboBox2.getSelectedItem().toString();
+            String camasirhane = jComboBox3.getSelectedItem().toString();
+            String revir = jComboBox4.getSelectedItem().toString();
+            Boolean basmi = jCheckBox1.isSelected();
+            if((!blok.equals("")&&!camasirhane.equals(""))||(!blok.equals("")&&!revir.equals(""))||
+                    (!revir.equals("")&&!camasirhane.equals(""))){
+                 JOptionPane.showMessageDialog(null, "Gardiyan birden fazla konumda bulunamaz! Tek bir yer seçin.");
+            }
+            else{
+                rs = st.executeQuery("insert into personel values("+ssn+",'"+isim+"','"+soyisim+"',"+maas+","+personelno+","+ssn+")"); 
+                rs2 = st.executeQuery("insert into gpersonel values('"+revir+"',"+basmi.toString().toUpperCase()+",'"+blok
+                        +"','"+camasirhane+"',"+ssn+")");
+            }
+            
         }
         else if(pozisyon.equals("Sağlık Personeli")){
             String blok = jComboBox2.getSelectedItem().toString();
@@ -682,10 +702,14 @@ public Connection conn = null;
             rs2 = st.executeQuery("insert into spersonel values("+ssn+",'"+blok+"')");
         }
         else if(pozisyon.equals("Yemekhane Personeli")){
-             rs = st.executeQuery("insert into personel values("+ssn+",'"+isim+"','"+soyisim+"',"+maas+","+personelno+","+ssn+")"); 
+            String blok = jComboBox2.getSelectedItem().toString();
+            rs = st.executeQuery("insert into personel values("+ssn+",'"+isim+"','"+soyisim+"',"+maas+","+personelno+","+ssn+")");
+            rs2 = st.executeQuery("insert into ypersonel values("+ssn+",'"+blok+"')");
         }
         else if(pozisyon.equals("Temizlik Personeli")){
-           rs = st.executeQuery("insert into personel values("+ssn+",'"+isim+"','"+soyisim+"',"+maas+","+personelno+","+ssn+")"); 
+           String blok = jComboBox2.getSelectedItem().toString();
+            rs = st.executeQuery("insert into personel values("+ssn+",'"+isim+"','"+soyisim+"',"+maas+","+personelno+","+ssn+")"); 
+            rs2 = st.executeQuery("insert into tpersonel values("+ssn+",'"+blok+"')");
         }
         }catch (SQLException se) {
           
@@ -706,19 +730,33 @@ public Connection conn = null;
             Statement st = null;
             ResultSet rs = null;
             st = conn.createStatement();
-            if(status.equals("Gardiyan")){
+        if(status.equals("Gardiyan")){
             jComboBox2.removeAllItems();
             jLabel8.setVisible(true);
             jLabel9.setVisible(true);
-            jLabel7.setText("Revir:");
+            jLabel9.setText("Revir:");
             jLabel8.setText("Çamaşırhane:");
             jLabel7.setText("Blok koridor:");
-            
+            jComboBox3.setVisible(true);
+            jComboBox4.setVisible(true);
+            rs = st.executeQuery("select * from blok;");
+                 while ( rs.next()){
+                   jComboBox2.addItem(rs.getString("blok_ismi"));
+                 }
+                 rs = st.executeQuery("select * from camasirhane;");
+                 while ( rs.next()){
+                   jComboBox3.addItem(rs.getString("blok_ismi"));
+                 }
+                 rs = st.executeQuery("select * from revir;");
+                 while ( rs.next()){
+                   jComboBox4.addItem(rs.getString("blok_ismi"));
+                 }
 
         }
         else if(status.equals("Sağlık Personeli")){
             jComboBox2.removeAllItems();
-            
+            jComboBox3.setVisible(false);
+            jComboBox4.setVisible(false);
             jLabel7.setText("Revir:");
             jLabel8.setVisible(false);
             jLabel9.setVisible(false);
@@ -729,12 +767,16 @@ public Connection conn = null;
 
         }
         else if(status.equals("Yemekhane Personeli")){
+             jComboBox3.setVisible(false);
+            jComboBox4.setVisible(false);
             jComboBox2.removeAllItems();
             jLabel7.setText("Yemekhane:");
             jLabel8.setVisible(false);
             jLabel9.setVisible(false);
         }
         else if(status.equals("Temizlik Personeli")){
+             jComboBox3.setVisible(false);
+            jComboBox4.setVisible(false);
             jComboBox2.removeAllItems();
             jLabel7.setText("Çamaşırhane:");
             jLabel8.setVisible(false);
@@ -845,6 +887,10 @@ public Connection conn = null;
         } 
     }//GEN-LAST:event_jButton9ActionPerformed
 
+    private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
+        
+    }//GEN-LAST:event_jCheckBox1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -875,6 +921,7 @@ public Connection conn = null;
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
     private javax.swing.JButton jButton9;
+    private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JComboBox<String> jComboBox3;
