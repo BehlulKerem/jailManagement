@@ -154,6 +154,8 @@ public class loginUI extends javax.swing.JFrame {
             Statement st = null;
             ResultSet rs = null;
             st = conn.createStatement();
+            userid = jTextField1.getText();
+            password = jTextField2.getText();
             rs = st.executeQuery("SELECT * FROM personel where personelno='"+userid+"' and password='"+password+"';");
             while ( rs.next()){
                 String isim = rs.getString("isim");
