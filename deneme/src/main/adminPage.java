@@ -19,6 +19,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class adminPage extends javax.swing.JFrame {
 public Connection conn = null;
+public Connection conn2 = null;
       
     /**
      * Creates new form adminPage
@@ -61,6 +62,7 @@ public Connection conn = null;
                    jComboBox8.addItem(datafromname);
                    jComboBox9.addItem(datafromname);
                    jComboBox10.addItem(datafromname);
+                   jComboBox11.addItem(datafromname);
                  }
                  rs = st.executeQuery("select * from revir;");
                  while ( rs.next()){
@@ -730,12 +732,13 @@ public Connection conn = null;
                     JOptionPane.showMessageDialog(null, "Blok ismi veritabanında mevcut. Lütfen düzelterek tekrara giriş yapın");//alert
                  }
                  else{
-                    rs = st.executeQuery("INSERT INTO blok(blok_ismi) values('"+blokisim+"');");
-                jComboBox6.addItem(blokisim);
+                      jComboBox6.addItem(blokisim);
                 jComboBox7.addItem(blokisim);
                 jComboBox8.addItem(blokisim);
                 jComboBox9.addItem(blokisim);
                 jComboBox10.addItem(blokisim);
+                jComboBox11.addItem(blokisim);
+                    rs = st.executeQuery("INSERT INTO blok(blok_ismi) values('"+blokisim+"');");
                  }
         }catch (SQLException se) {
             System.err.println("Threw a SQLException creating the list of blogs.");
@@ -1008,20 +1011,25 @@ public Connection conn = null;
        //for statement sadece query execution kapsayacak şekilde yazıldığı takdirde sadece 1 bağlantı oluyor.
        //Her loop için bağlantı tekrar kurulması gerekiyor.
         int hucresayisi = Integer.parseInt(jTextField9.getText());
-        for(int i=0;i<=hucresayisi;i++){
+        for(int i=0;i<hucresayisi;i++){
             try{      
                 jdbc sub = new jdbc();
                 conn = sub.connectToDatabaseOrDie();
-                Statement st=null,st2=null,st3 = null;
-                ResultSet rs,rs2 = null;
+                Statement st=null;
+                ResultSet rs= null;
                 st = conn.createStatement();
                  String blok = jComboBox10.getSelectedItem().toString();
                     //st.execute("insert into thucre (blok_ismi) values ('"+blok+"');",Statement.RETURN_GENERATED_KEYS);
-                    rs = st.executeQuery("insert into thucre (blok_ismi) values ('"+blok+"');");
+                    rs = st.executeQuery("insert into hucre (blok_ismi) values ('"+blok+"') returning hucre_no");
+                    conn.close();
                     //rs = st.getGeneratedKeys();
                     while(rs.next()){
-                       System.out.println(rs.getInt(1));
-                        // st2.executeQuery("insert into hucre values("+rs.getInt(1)+",'"+blok+"');");
+                        jdbc sub2 = new jdbc();
+                        conn2 = sub2.connectToDatabaseOrDie();
+                        Statement st2=null;
+                        st2 = conn2.createStatement();
+                        st2.executeQuery("insert into thucre values("+rs.getInt(1)+",'"+blok+"');");
+                        conn2.close();
                     }
                    
              }catch (SQLException se) {
@@ -1042,11 +1050,23 @@ public Connection conn = null;
             try{      
                 jdbc sub = new jdbc();
                 conn = sub.connectToDatabaseOrDie();
-                Statement st = null;
-                ResultSet rs = null;
+                Statement st=null;
+                ResultSet rs= null;
                 st = conn.createStatement();
                  String blok = jComboBox11.getSelectedItem().toString();
-                    rs = st.executeQuery("insert into hucre (blok_ismi) values ('"+blok+"');");
+                    //st.execute("insert into thucre (blok_ismi) values ('"+blok+"');",Statement.RETURN_GENERATED_KEYS);
+                    rs = st.executeQuery("insert into hucre (blok_ismi) values ('"+blok+"') returning hucre_no");
+                    conn.close();
+                    //rs = st.getGeneratedKeys();
+                    while(rs.next()){
+                        jdbc sub2 = new jdbc();
+                        conn2 = sub2.connectToDatabaseOrDie();
+                        Statement st2=null;
+                        st2 = conn2.createStatement();
+                        st2.executeQuery("insert into chucre values("+rs.getInt(1)+",'"+blok+"');");
+                        conn2.close();
+                    }
+                   
              }catch (SQLException se) {
                 System.out.println(se);
              } 
