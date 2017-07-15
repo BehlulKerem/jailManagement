@@ -11,6 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -72,7 +73,38 @@ public class mahkum {
             }         
           
  
-         }catch (SQLException se) {
-          }
+         }catch (SQLException se) {}
+    }
+    
+     public void hepsi(DefaultTableModel model,int rowCount){
+       
+        for (int i = rowCount - 1; i >= 0; i--) {
+            model.removeRow(i);
+        }
+       
+         try{      
+        jdbc sub = new jdbc();
+            conn = sub.connectToDatabaseOrDie();
+            Statement st = null;
+            ResultSet rs = null;
+            st = conn.createStatement();
+            
+            rs = st.executeQuery("select * from mahkum");  
+            while (rs.next()){
+                int ssn = rs.getInt("ssn");
+                String isim =rs.getString("isim") ;
+                String soyisim = rs.getString("soyisim");
+                String blok = rs.getString("blok");
+                String hucre_no = rs.getString("hucre_no");
+                String hucre_tipi = rs.getString("hucre_tipi");
+                String giris_tarihi = rs.getString("giris_tarihi");
+                String cikis_tarihi = rs.getString("cikis_tarihi");
+                model.addRow(new Object[]{ssn,isim,soyisim,blok,hucre_no,hucre_tipi,giris_tarihi,cikis_tarihi});
+            }
+            conn.close();
+            st.close();
+            rs.close();
+        }catch (SQLException se) {
+        } 
     }
 }

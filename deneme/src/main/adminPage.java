@@ -113,7 +113,7 @@ public Connection conn2 = null;
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jLabel16 = new javax.swing.JLabel();
-        jComboBox9 = new javax.swing.JComboBox<>();
+        jComboBox9 = new javax.swing.JComboBox<String>();
         jButton12 = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
@@ -123,20 +123,20 @@ public Connection conn2 = null;
         jLabel20 = new javax.swing.JLabel();
         jLabel21 = new javax.swing.JLabel();
         jLabel22 = new javax.swing.JLabel();
-        jComboBox6 = new javax.swing.JComboBox<>();
-        jComboBox7 = new javax.swing.JComboBox<>();
-        jComboBox8 = new javax.swing.JComboBox<>();
+        jComboBox6 = new javax.swing.JComboBox<String>();
+        jComboBox7 = new javax.swing.JComboBox<String>();
+        jComboBox8 = new javax.swing.JComboBox<String>();
         jButton5 = new javax.swing.JButton();
         jButton7 = new javax.swing.JButton();
         jButton8 = new javax.swing.JButton();
         jLabel23 = new javax.swing.JLabel();
         jTextField13 = new javax.swing.JTextField();
         jLabel25 = new javax.swing.JLabel();
-        jComboBox10 = new javax.swing.JComboBox<>();
+        jComboBox10 = new javax.swing.JComboBox<String>();
         jButton10 = new javax.swing.JButton();
         jTextField9 = new javax.swing.JTextField();
         jLabel26 = new javax.swing.JLabel();
-        jComboBox11 = new javax.swing.JComboBox<>();
+        jComboBox11 = new javax.swing.JComboBox<String>();
         jTextField15 = new javax.swing.JTextField();
         jButton11 = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
@@ -152,13 +152,13 @@ public Connection conn2 = null;
         jTextField3 = new javax.swing.JTextField();
         jTextField4 = new javax.swing.JTextField();
         jTextField6 = new javax.swing.JTextField();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jComboBox2 = new javax.swing.JComboBox<>();
+        jComboBox1 = new javax.swing.JComboBox<String>();
+        jComboBox2 = new javax.swing.JComboBox<String>();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        jComboBox3 = new javax.swing.JComboBox<>();
-        jComboBox4 = new javax.swing.JComboBox<>();
+        jComboBox3 = new javax.swing.JComboBox<String>();
+        jComboBox4 = new javax.swing.JComboBox<String>();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
@@ -409,10 +409,10 @@ public Connection conn2 = null;
         jLabel23.setText("Yatak Sayısı:");
 
         jTextField13.addInputMethodListener(new java.awt.event.InputMethodListener() {
-            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
-            }
             public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
                 jTextField13InputMethodTextChanged(evt);
+            }
+            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
             }
         });
         jTextField13.addActionListener(new java.awt.event.ActionListener() {
@@ -569,29 +569,29 @@ public Connection conn2 = null;
 
         jLabel1.setText("Personel No:");
         jPanel1.add(jLabel1);
-        jLabel1.setBounds(20, 10, 90, 14);
+        jLabel1.setBounds(20, 10, 90, 15);
 
         jLabel2.setText("SSN:");
         jPanel1.add(jLabel2);
-        jLabel2.setBounds(20, 40, 50, 14);
+        jLabel2.setBounds(20, 40, 50, 15);
         jPanel1.add(filler1);
         filler1.setBounds(387, 22, 0, 400);
 
         jLabel3.setText("İsim:");
         jPanel1.add(jLabel3);
-        jLabel3.setBounds(230, 10, 50, 14);
+        jLabel3.setBounds(230, 10, 50, 15);
 
         jLabel4.setText("Soyisim:");
         jPanel1.add(jLabel4);
-        jLabel4.setBounds(230, 40, 60, 14);
+        jLabel4.setBounds(230, 40, 60, 15);
 
         jLabel5.setText("Pozisyon:");
         jPanel1.add(jLabel5);
-        jLabel5.setBounds(440, 10, 70, 14);
+        jLabel5.setBounds(440, 10, 70, 15);
 
         jLabel6.setText("Maaş:");
         jPanel1.add(jLabel6);
-        jLabel6.setBounds(440, 40, 60, 14);
+        jLabel6.setBounds(440, 40, 60, 15);
 
         jTextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -599,25 +599,25 @@ public Connection conn2 = null;
             }
         });
         jPanel1.add(jTextField1);
-        jTextField1.setBounds(100, 10, 112, 20);
+        jTextField1.setBounds(100, 10, 112, 19);
 
         jTextField2.setText("jTextField2");
         jPanel1.add(jTextField2);
-        jTextField2.setBounds(100, 40, 112, 20);
+        jTextField2.setBounds(100, 40, 112, 19);
 
         jTextField3.setText("jTextField3");
         jPanel1.add(jTextField3);
-        jTextField3.setBounds(300, 10, 110, 20);
+        jTextField3.setBounds(300, 10, 110, 19);
 
         jTextField4.setText("jTextField4");
         jPanel1.add(jTextField4);
-        jTextField4.setBounds(300, 40, 110, 20);
+        jTextField4.setBounds(300, 40, 110, 19);
 
         jTextField6.setText("jTextField6");
         jPanel1.add(jTextField6);
-        jTextField6.setBounds(510, 40, 113, 20);
+        jTextField6.setBounds(510, 40, 113, 19);
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "Sağlık Personeli", "Gardiyan", "Temizlik Personeli", "Yemekhane Personeli", "Yönetim" }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "", "Sağlık Personeli", "Gardiyan", "Temizlik Personeli", "Yemekhane Personeli", "Yönetim" }));
         jComboBox1.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 jComboBox1ItemStateChanged(evt);
@@ -629,7 +629,7 @@ public Connection conn2 = null;
             }
         });
         jPanel1.add(jComboBox1);
-        jComboBox1.setBounds(510, 10, 112, 20);
+        jComboBox1.setBounds(510, 10, 112, 24);
 
         jComboBox2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -637,25 +637,25 @@ public Connection conn2 = null;
             }
         });
         jPanel1.add(jComboBox2);
-        jComboBox2.setBounds(100, 70, 112, 20);
+        jComboBox2.setBounds(100, 70, 112, 24);
 
         jLabel7.setText("jLabel7");
         jPanel1.add(jLabel7);
-        jLabel7.setBounds(20, 70, 60, 14);
+        jLabel7.setBounds(20, 70, 60, 15);
 
         jLabel8.setText("jLabel8");
         jPanel1.add(jLabel8);
-        jLabel8.setBounds(230, 70, 60, 14);
+        jLabel8.setBounds(230, 70, 60, 15);
 
         jLabel9.setText("jLabel9");
         jPanel1.add(jLabel9);
-        jLabel9.setBounds(440, 70, 60, 14);
+        jLabel9.setBounds(440, 70, 60, 15);
 
         jPanel1.add(jComboBox3);
-        jComboBox3.setBounds(300, 70, 110, 20);
+        jComboBox3.setBounds(300, 70, 110, 24);
 
         jPanel1.add(jComboBox4);
-        jComboBox4.setBounds(510, 70, 114, 20);
+        jComboBox4.setBounds(510, 70, 114, 24);
 
         jButton2.setText("Kaydet");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -725,7 +725,7 @@ public Connection conn2 = null;
         jTabbedPane1.addTab("Personel", jPanel1);
 
         getContentPane().add(jTabbedPane1);
-        jTabbedPane1.setBounds(10, 0, 680, 613);
+        jTabbedPane1.setBounds(10, 0, 680, 620);
         jTabbedPane1.getAccessibleContext().setAccessibleName("");
 
         pack();
@@ -1041,35 +1041,13 @@ public Connection conn2 = null;
     }//GEN-LAST:event_jButton11ActionPerformed
 
     private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
-          DefaultTableModel model  = (DefaultTableModel) jTable3.getModel();
-        //When clicked all personels list operation button. First delete all current table content.
+         mahkum yeni = new mahkum();
+         DefaultTableModel model  = (DefaultTableModel) jTable1.getModel();
+        //When clicked all mahkums list operation button. First delete all current table content.
         int rowCount = model.getRowCount();
         //Remove rows one by one from the end of the table
-        for (int i = rowCount - 1; i >= 0; i--) {
-            model.removeRow(i);
-        }
         
-         try{      
-        jdbc sub = new jdbc();
-            conn = sub.connectToDatabaseOrDie();
-            Statement st = null;
-            ResultSet rs = null;
-            st = conn.createStatement();
-            
-            rs = st.executeQuery("select * from mahkum");  
-            while ( rs.next()){
-                int ssn = rs.getInt("ssn");
-                String isim =rs.getString("isim") ;
-                String soyisim = rs.getString("soyisim");
-                String gtarihi = rs.getString("giris_tarihi");
-                String ctarihi = rs.getString("cikis_tarihi");
-                String htipi = rs.getString("hucre_tipi");
-                int hno = rs.getInt("hucre_no");
-                
-               // model.addRow(new Object[]{ssn,isim,soyisim,"-",maas});
-            }
-        }catch (SQLException se) {
-        } 
+        yeni.hepsi(model,rowCount);
     }//GEN-LAST:event_jButton12ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
