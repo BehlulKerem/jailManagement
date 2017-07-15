@@ -11,13 +11,11 @@ package main;
  *
  * @author MesutKutlu
  */
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
+
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 public class loginUI extends javax.swing.JFrame {
     static String userid;
     static String password;
@@ -151,27 +149,26 @@ public class loginUI extends javax.swing.JFrame {
             jdbc sub = new jdbc();
             Connection conn = null;
             conn = sub.connectToDatabaseOrDie();
-            Statement st = null;
+            PreparedStatement ps = null;
             ResultSet rs = null;
-            st = conn.createStatement();
             userid = jTextField1.getText();
             password = jTextField2.getText();
-            rs = st.executeQuery("SELECT * FROM personel where personelno='"+userid+"' and password='"+password+"';");
-            while ( rs.next()){
-                String isim = rs.getString("isim");
-                count++;
-                jLabel3.setText(isim+" Hosgeldin!");
-                if(isim.equals("admin")){
-                    adminPage slide = new adminPage();
-                    slide.setVisible(true);
-                    dispose();
-                }
-                else{
-                    dispose();
-                }
+            ps = conn.prepareStatement("SELECT count(*) FROM personel where personelno=? and password=?;");
+            ps.setInt(1,Integer.parseInt(userid));
+            ps.setString(2,password);
+            rs = ps.executeQuery();
+            rs.next();
+            //System.out.println(rs.getInt("count"));
+                    
+            if(1==rs.getInt("count")){
+                adminPage slide = new adminPage();
+                slide.setVisible(true);
+                dispose();
             }
-            rs.close();
-            st.close();
+            else{
+                JOptionPane.showMessageDialog(null, "Hatalı kullanici adi veya sifre.");
+            }
+           
         }
         catch (SQLException se) {
             System.err.println("Threw a SQLException creating the list of blogs.");
@@ -183,11 +180,6 @@ public class loginUI extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
         try 
         {
           javax.swing.UIManager.setLookAndFeel(new SyntheticaAluOxideLookAndFeel());
@@ -196,9 +188,6 @@ public class loginUI extends javax.swing.JFrame {
         {
          e.printStackTrace();
         }
-
-        
-        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {

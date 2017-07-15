@@ -64,15 +64,19 @@ public Connection conn2 = null;
                    jComboBox10.addItem(datafromname);
                    jComboBox11.addItem(datafromname);
                  }
-                 rs = st.executeQuery("select * from revir;");
+                 /*rs = st.executeQuery("select * from revir;");
                  while ( rs.next()){
                    jComboBox2.removeAllItems();
                    jComboBox2.addItem(rs.getString("blok_ismi"));
-                 }
+                 }*/
+                 conn.close();
+                 st.close();
+                 rs.close();
         }catch (SQLException se) {
             System.err.println("Threw a SQLException creating the list of blogs.");
             System.err.println(se.getMessage());
         }
+     
        
        
 
@@ -589,7 +593,6 @@ public Connection conn2 = null;
         jPanel1.add(jLabel6);
         jLabel6.setBounds(440, 40, 60, 14);
 
-        jTextField1.setText("jTextField1");
         jTextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField1ActionPerformed(evt);
@@ -614,7 +617,7 @@ public Connection conn2 = null;
         jPanel1.add(jTextField6);
         jTextField6.setBounds(510, 40, 113, 20);
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Sağlık Personeli", "Gardiyan", "Temizlik Personeli", "Yemekhane Personeli", "Yönetim" }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "Sağlık Personeli", "Gardiyan", "Temizlik Personeli", "Yemekhane Personeli", "Yönetim" }));
         jComboBox1.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 jComboBox1ItemStateChanged(evt);
@@ -664,6 +667,11 @@ public Connection conn2 = null;
         jButton2.setBounds(190, 109, 80, 30);
 
         jButton3.setText("Arama");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
         jPanel1.add(jButton3);
         jButton3.setBounds(321, 109, 80, 30);
 
@@ -771,46 +779,8 @@ public Connection conn2 = null;
         int hucre_no = Integer.parseInt(jTextField14.getText().toString());
         String hucre_tipi = jComboBox5.getSelectedItem().toString();
         String blok = jComboBox9.getSelectedItem().toString();
-        
-         try{  
-            jdbc sub = new jdbc();
-            conn = sub.connectToDatabaseOrDie();
-            Statement st = null;
-            ResultSet rs,rs1 = null;
-            st = conn.createStatement();
-            if(hucre_tipi.equals("Tek kişilik hücre")){
-                 rs = st.executeQuery("select * from thucre where blok_ismi='"+blok+"' and hucre_no='"+hucre_no+"';");
-                 int count = 0;
-                while(rs.next()){
-                    count++;
-                }
-                if(count!=0){
-                      rs = st.executeQuery("insert into mahkum values("+mahkum_ssn+",'"+mahkum_isim+"',"
-          + "'"+mahkum_soyisim+"','"+giris_tarihi+"','"+cikis_tarihi+"','"+hucre_tipi+"',"+hucre_no+",'"+blok+"' )");
-                }
-                else{
-                     JOptionPane.showMessageDialog(null, "Tek kisilik hucrelerde boyle bir hucre no bulunmamaktadir");//alert
-                }
-            }
-            else{
-                  rs = st.executeQuery("select * from chucre where blok_ismi='"+blok+"' and hucre_no='"+hucre_no+"';");
-                 int count = 0;
-                while(rs.next()){
-                    count++;
-                }
-                if(count!=0){
-                      rs = st.executeQuery("insert into mahkum values("+mahkum_ssn+",'"+mahkum_isim+"',"
-          + "'"+mahkum_soyisim+"','"+giris_tarihi+"','"+cikis_tarihi+"','"+hucre_tipi+"',"+hucre_no+",'"+blok+"' )");
-                }
-                else{
-                     JOptionPane.showMessageDialog(null, "Cok kisilik hucrelerde boyle bir hucre no bulunmamaktadir");//alert
-                }
-            }         
-          
- 
-            }catch (SQLException se) {
-          
-        }
+        mahkum call = new mahkum();
+        call.kaydet(mahkum_ssn,mahkum_isim,mahkum_soyisim,giris_tarihi,cikis_tarihi,hucre_no,hucre_tipi,blok);
         
         
         
@@ -856,6 +826,10 @@ public Connection conn2 = null;
             jLabel7.setText("Blok koridor:");
             jComboBox3.setVisible(true);
             jComboBox4.setVisible(true);
+            jComboBox2.addItem(" ");
+            jComboBox3.addItem(" ");
+            jComboBox4.addItem(" ");
+
             rs = st.executeQuery("select * from blok;");
                  while ( rs.next()){
                    jComboBox2.addItem(rs.getString("blok_ismi"));
@@ -877,6 +851,7 @@ public Connection conn2 = null;
             jLabel7.setText("Revir:");
             jLabel8.setVisible(false);
             jLabel9.setVisible(false);
+            jComboBox2.addItem(" ");
             rs = st.executeQuery("select * from revir;");
                  while ( rs.next()){
                    jComboBox2.addItem(rs.getString("blok_ismi"));
@@ -890,6 +865,7 @@ public Connection conn2 = null;
             jLabel7.setText("Yemekhane:");
             jLabel8.setVisible(false);
             jLabel9.setVisible(false);
+            jComboBox2.addItem(" ");
               rs = st.executeQuery("select * from yemekhane;");
                  while ( rs.next()){
                    jComboBox2.addItem(rs.getString("blok_ismi"));
@@ -902,6 +878,7 @@ public Connection conn2 = null;
             jLabel7.setText("Çamaşırhane:");
             jLabel8.setVisible(false);
             jLabel9.setVisible(false);
+            jComboBox2.addItem(" ");
               rs = st.executeQuery("select * from camasirhane;");
                  while ( rs.next()){
                    jComboBox2.addItem(rs.getString("blok_ismi"));
@@ -984,32 +961,13 @@ public Connection conn2 = null;
     }//GEN-LAST:event_jButton8ActionPerformed
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
-        DefaultTableModel model  = (DefaultTableModel) jTable3.getModel();
+        personel yeni = new personel();
+         DefaultTableModel model  = (DefaultTableModel) jTable3.getModel();
         //When clicked all personels list operation button. First delete all current table content.
         int rowCount = model.getRowCount();
         //Remove rows one by one from the end of the table
-        for (int i = rowCount - 1; i >= 0; i--) {
-            model.removeRow(i);
-        }
-       
-         try{      
-        jdbc sub = new jdbc();
-            conn = sub.connectToDatabaseOrDie();
-            Statement st = null;
-            ResultSet rs = null;
-            st = conn.createStatement();
-            
-            rs = st.executeQuery("select * from personel");  
-            while ( rs.next()){
-                int personelno = rs.getInt("personelno");
-                int ssn = rs.getInt("ssn");
-                String isim =rs.getString("isim") ;
-                String soyisim = rs.getString("soyisim");
-                double maas = rs.getDouble("maas");                
-                model.addRow(new Object[]{personelno,ssn,isim,soyisim,"-",maas});
-            }
-        }catch (SQLException se) {
-        } 
+        
+        yeni.hepsi(model,rowCount);
     }//GEN-LAST:event_jButton9ActionPerformed
 
     private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
@@ -1113,6 +1071,33 @@ public Connection conn2 = null;
         }catch (SQLException se) {
         } 
     }//GEN-LAST:event_jButton12ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+          Integer personelno = null;
+          Integer ssn = null;
+          Double maas = null;
+            try{
+                personelno = Integer.valueOf(jTextField1.getText());
+                ssn = Integer.valueOf(jTextField2.getText());
+                maas = Double.valueOf(jTextField6.getText());
+            }catch(NumberFormatException e){               
+            }
+            String isim = jTextField3.getText().toString();
+            String soyisim = jTextField4.getText().toString();
+            String pozisyon = jComboBox1.getSelectedItem().toString();
+            String blok = jComboBox2.getSelectedItem().toString();
+            String camasirhane = jComboBox3.getSelectedItem().toString();
+            String revir = jComboBox4.getSelectedItem().toString();
+            Boolean basmi = jCheckBox1.isSelected(); 
+              DefaultTableModel model  = (DefaultTableModel) jTable3.getModel();
+            //When clicked all personels list operation button. First delete all current table content.
+            int rowCount = model.getRowCount();
+            //Remove rows one by one from the end of the table
+        
+       personel yeni = new personel();
+       yeni.arama(personelno,ssn,isim,soyisim,pozisyon,maas,blok,camasirhane,revir,basmi,model,rowCount);
+               
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments
