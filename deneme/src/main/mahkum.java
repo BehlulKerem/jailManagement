@@ -10,6 +10,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -32,48 +38,64 @@ public class mahkum {
                  ps = conn.prepareStatement("select count(*) from thucre where blok_ismi=? and hucre_no=?;");
                  ps.setString(1,blok);
                  ps.setInt(2, hucre_no);
-                 int count = 0;
                  rs = ps.executeQuery();
-                 
+                 rs.next();
                 if(rs.getInt("count")!=0){
+                  
                       ps2 = conn.prepareStatement("insert into mahkum values(?,?,?,?,?,?,?,?)");
                       ps2.setInt(1,mahkum_ssn);
                       ps2.setString(2,mahkum_isim);
                       ps2.setString(3,mahkum_soyisim);
-                      ps2.setString(4,giris_tarihi);
-                      ps2.setString(5,cikis_tarihi);
+                        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+                        Date parsed = format.parse(giris_tarihi);
+                        java.sql.Date sql = new java.sql.Date(parsed.getTime());
+                        Date parsed2 = format.parse(giris_tarihi);
+                        java.sql.Date sql2 = new java.sql.Date(parsed2.getTime());
+                      ps2.setDate(4,sql);
+                      ps2.setDate(5,sql2);
                       ps2.setString(6, hucre_tipi);
                       ps2.setInt(7,hucre_no);
                       ps2.setString(8, blok);
-                      
+                      ps2.execute();
                 }
                 else{
                      JOptionPane.showMessageDialog(null, "Tek kisilik hucrelerde boyle bir hucre no bulunmamaktadir");//alert
                 }
-            }
+            } //çok kisilik hucre imp.
             else{
                   ps = conn.prepareStatement("select count(*) from chucre where blok_ismi=? and hucre_no=?;");
                   ps.setString(1, blok);
                   ps.setInt(2, hucre_no);
                   rs = ps.executeQuery();
+                  rs.next();
                 if(rs.getInt("count")!=0){
+                    SimpleDateFormat df = new SimpleDateFormat("yyyy-MMM-dd"); 
+                    Date parsedDate=df.parse(giris_tarihi); 
+                    Date parsedDate2=df.parse(cikis_tarihi); 
                     ps2 = conn.prepareStatement("insert into mahkum values(?,?,?,?,?,?,?,?)");
                       ps2.setInt(1,mahkum_ssn);
                       ps2.setString(2,mahkum_isim);
                       ps2.setString(3,mahkum_soyisim);
-                      ps2.setString(4,giris_tarihi);
-                      ps2.setString(5,cikis_tarihi);
+                      ps2.setDate(4, (java.sql.Date) parsedDate);
+                      ps2.setDate(5, (java.sql.Date) parsedDate2);
                       ps2.setString(6, hucre_tipi);
                       ps2.setInt(7,hucre_no);
                       ps2.setString(8, blok);
+                      ps2.execute();
                 }
                 else{
                      JOptionPane.showMessageDialog(null, "Cok kisilik hucrelerde boyle bir hucre no bulunmamaktadir");//alert
                 }
             }         
-          
- 
-         }catch (SQLException se) {}
+          //conn.close();
+          ps.close();
+          ps2.close();
+          rs.close();
+         }catch (SQLException se) {
+             System.out.println(se);
+         } catch (ParseException ex) {
+            Logger.getLogger(mahkum.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
      public void hepsi(DefaultTableModel model,int rowCount){
@@ -101,7 +123,7 @@ public class mahkum {
                 String cikis_tarihi = rs.getString("cikis_tarihi");
                 model.addRow(new Object[]{ssn,isim,soyisim,blok,hucre_no,hucre_tipi,giris_tarihi,cikis_tarihi});
             }
-            conn.close();
+            //conn.close();
             st.close();
             rs.close();
         }catch (SQLException se) {

@@ -46,7 +46,7 @@ public class personel {
                 ps.setString(4, camasirhane);
                 ps.setInt(5, ssn);
                 ps.close();
-                conn.close();
+                //conn.close();
             }
             
         }
@@ -65,7 +65,7 @@ public class personel {
                 ps.execute();
                 
                 ps.close();
-                conn.close();
+                //conn.close();
         }
         else if(pozisyon.equals("Yemekhane Personeli")){
             ps = conn.prepareStatement("insert into personel values(?,?,?,?,?,?);"); 
@@ -82,7 +82,7 @@ public class personel {
                 ps.execute();
                 
                 ps.close();
-                conn.close();
+                //conn.close();
         }
         else if(pozisyon.equals("Temizlik Personeli")){
             ps = conn.prepareStatement("insert into personel values(?,?,?,?,?,?);"); 
@@ -99,7 +99,7 @@ public class personel {
                 ps.execute();
                 
                 ps.close();
-                conn.close();
+                //conn.close();
         }
         }catch (SQLException se) {
           System.out.println(se);
@@ -127,7 +127,7 @@ public class personel {
                 double maas = rs.getDouble("maas");                
                 model.addRow(new Object[]{personelno,ssn,isim,soyisim,"-",maas});
             }
-            conn.close();
+            //conn.close();
             st.close();
             rs.close();
         }catch (SQLException se) {
