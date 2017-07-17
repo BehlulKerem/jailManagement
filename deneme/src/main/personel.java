@@ -140,53 +140,87 @@ public class personel {
             conn = sub.connectToDatabaseOrDie();
             PreparedStatement ps = null;
             ResultSet rs = null;
-            int count=1;
+            int count=1,count2=1;
             
             aramametini  ="select * from personel where ";
-            
+            ps = conn.prepareStatement(aramametini);
+
+            System.out.println("-"+isim+"-");
             if(personelno==null);
             else{
                 aramametini+="personelno=? ";
+                ps = conn.prepareStatement(aramametini);
+                count2++;
+            }
+            if(ssn==null);
+            else{
+                if(count2!=1)
+                    aramametini+="and ";
+                aramametini+="ssn=? ";
+                ps = conn.prepareStatement(aramametini);
+                count2++;
+            }
+            if(isim=="");
+            else{
+                if(count2!=1)
+                    aramametini+="and ";
+                aramametini+="isim=? ";
+                ps = conn.prepareStatement(aramametini);
+                count2++;
+            }
+            if(soyisim=="");
+            else{
+                if(count2!=1)
+                    aramametini+="and ";
+                aramametini+="soyisim=? ";
+                ps = conn.prepareStatement(aramametini);
+                count2++;
+            }
+            if(maas==null);
+            else{
+                if(count2!=1)
+                    aramametini+="and ";
+                aramametini+="maas=? ";
+                ps = conn.prepareStatement(aramametini);
+                count2++;
+            }
+            if(personelno==null);
+            else{
                 ps.setInt(count, personelno);
                 count++;
             }
             if(ssn==null);
             else{
-                aramametini+="ssn=? ";
                 ps.setInt(count, personelno);
                 count++;
             }
-            if(isim==null);
+            if(isim.equals(""));
             else{
-                aramametini+="isim=? ";
                 ps.setString(count, isim);
                 count++;
             }
-            if(soyisim==null);
+            if(soyisim.equals(""));
             else{
-                aramametini+="soyisim=? ";
                 ps.setString(count, soyisim);
                 count++;
             }
             if(maas==null);
             else{
-                aramametini+="maas=? ";
                 ps.setDouble(count, maas);
                 count++;
             }
             aramametini+=";";
-            
-            conn.prepareStatement(aramametini);
+            System.out.println(ps.toString());
             rs = ps.executeQuery();
             for (int i = rowCount - 1; i >= 0; i--) {
                 model.removeRow(i);
             }
             while ( rs.next()){
-                int personelno2 = rs.getInt("personelno");
                 int ssn2 = rs.getInt("ssn");
                 String isim2 =rs.getString("isim") ;
                 String soyisim2 = rs.getString("soyisim");
                 double maas2 = rs.getDouble("maas");
+                int personelno2 = rs.getInt("personelno");
                 //EKLEME YAPILACAK.
                 model.addRow(new Object[]{personelno2,ssn2,isim2,soyisim2,"-",maas2});
             }
@@ -205,6 +239,7 @@ public class personel {
             ps.close();
             rs.close();
         }catch (SQLException se) {
+            System.out.println(se);
         } 
     }
         
