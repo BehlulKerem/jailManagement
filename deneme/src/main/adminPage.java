@@ -656,36 +656,9 @@ public Connection conn2 = null;
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-               String blokisim = "";
-        try {
-                blokisim = jTextField5.getText();
-                Statement st = null;
-                ResultSet rs,rs1 = null;
-                st = conn.createStatement();
-                int count = 0;
-                 rs1 = st.executeQuery("select * from blok where blok_ismi='"+blokisim+"';");
-                 while ( rs1.next()){
-                     count++;
-                 }
-                 if(count!=0){
-                    JOptionPane.showMessageDialog(null, "Blok ismi veritabanında mevcut. Lütfen düzelterek tekrara giriş yapın");//alert
-                 }
-                 else{
-                      jComboBox6.addItem(blokisim);
-                jComboBox7.addItem(blokisim);
-                jComboBox8.addItem(blokisim);
-                jComboBox9.addItem(blokisim);
-                jComboBox10.addItem(blokisim);
-                jComboBox11.addItem(blokisim);
-                    rs = st.executeQuery("INSERT INTO blok(blok_ismi) values('"+blokisim+"');");
-                 }
-        }catch (SQLException se) {
-            System.err.println("Threw a SQLException creating the list of blogs.");
-            System.err.println(se.getMessage());
-        }
-        
-           
+            //blok ekle
+            blok yeni = new blok();
+            yeni.blok_ekle(jComboBox6,jComboBox7,jComboBox8,jComboBox9,jComboBox10,jComboBox11,jTextField5);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jComboBox5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox5ActionPerformed
@@ -840,18 +813,9 @@ public Connection conn2 = null;
     }//GEN-LAST:event_jComboBox2ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        int sayi  = Integer.parseInt(jTextField13.getText()); 
-        try{      
-        jdbc sub = new jdbc();
-            conn = sub.connectToDatabaseOrDie();
-            Statement st = null;
-            ResultSet rs = null;
-            st = conn.createStatement();
-            String blok = jComboBox6.getSelectedItem().toString();
-            rs = st.executeQuery("insert into revir values("+sayi+",0,'"+blok+"');");    
-        }catch (SQLException se) {
-          
-        }
+         
+        blok yeni = new blok();
+        yeni.revir_ekle(jTextField13,jComboBox6);
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jTextField5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField5ActionPerformed
@@ -871,32 +835,15 @@ public Connection conn2 = null;
     }//GEN-LAST:event_jTextField13ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-        // TODO add your handling code here:
-         try{      
-        jdbc sub = new jdbc();
-            conn = sub.connectToDatabaseOrDie();
-            Statement st = null;
-            ResultSet rs = null;
-            st = conn.createStatement();
-            String blok = jComboBox7.getSelectedItem().toString();
-            rs = st.executeQuery("insert into camasirhane values('"+blok+"')");    
-        }catch (SQLException se) {
-       
-        }
+
+            blok yeni = new blok();
+            yeni.camasirhane_ekle(jComboBox7);
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-          try{      
-        jdbc sub = new jdbc();
-            conn = sub.connectToDatabaseOrDie();
-            Statement st = null;
-            ResultSet rs = null;
-            st = conn.createStatement();
-            String blok = jComboBox8.getSelectedItem().toString();
-            rs = st.executeQuery("insert into yemekhane values('"+blok+"')");    
-        }catch (SQLException se) {
-            
-        }
+
+          blok yeni = new blok();
+            yeni.yemekhane_ekle(jComboBox8);
     }//GEN-LAST:event_jButton8ActionPerformed
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
@@ -905,7 +852,6 @@ public Connection conn2 = null;
         //When clicked all personels list operation button. First delete all current table content.
         int rowCount = model.getRowCount();
         //Remove rows one by one from the end of the table
-        
         yeni.hepsi(model,rowCount);
     }//GEN-LAST:event_jButton9ActionPerformed
 
@@ -914,34 +860,10 @@ public Connection conn2 = null;
     }//GEN-LAST:event_jCheckBox1ActionPerformed
 
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
-       //for statement sadece query execution kapsayacak şekilde yazıldığı takdirde sadece 1 bağlantı oluyor.
-       //Her loop için bağlantı tekrar kurulması gerekiyor.
-        int hucresayisi = Integer.parseInt(jTextField9.getText());
-        for(int i=0;i<hucresayisi;i++){
-            try{      
-                jdbc sub = new jdbc();
-                conn = sub.connectToDatabaseOrDie();
-                Statement st=null;
-                ResultSet rs= null;
-                st = conn.createStatement();
-                 String blok = jComboBox10.getSelectedItem().toString();
-                    //st.execute("insert into thucre (blok_ismi) values ('"+blok+"');",Statement.RETURN_GENERATED_KEYS);
-                    rs = st.executeQuery("insert into hucre (blok_ismi) values ('"+blok+"') returning hucre_no");
-                    conn.close();
-                    //rs = st.getGeneratedKeys();
-                    while(rs.next()){
-                        jdbc sub2 = new jdbc();
-                        conn2 = sub2.connectToDatabaseOrDie();
-                        Statement st2=null;
-                        st2 = conn2.createStatement();
-                        st2.executeQuery("insert into thucre values("+rs.getInt(1)+",'"+blok+"');");
-                        conn2.close();
-                    }
-                   
-             }catch (SQLException se) {
-                System.out.println(se);
-             } 
-        }
+
+         blok yeni = new blok();
+         yeni.tkhucre_ekle(jComboBox10,jTextField9);
+        
     }//GEN-LAST:event_jButton10ActionPerformed
 
     private void jTextField9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField9ActionPerformed
@@ -949,34 +871,9 @@ public Connection conn2 = null;
     }//GEN-LAST:event_jTextField9ActionPerformed
 
     private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
-        //for statement sadece query execution kapsayacak şekilde yazıldığı takdirde sadece 1 bağlantı oluyor.
-       //Her loop için bağlantı tekrar kurulması gerekiyor.
-        int hucresayisi = Integer.parseInt(jTextField15.getText());
-        for(int i=0;i<=hucresayisi;i++){
-            try{      
-                jdbc sub = new jdbc();
-                conn = sub.connectToDatabaseOrDie();
-                Statement st=null;
-                ResultSet rs= null;
-                st = conn.createStatement();
-                 String blok = jComboBox11.getSelectedItem().toString();
-                    //st.execute("insert into thucre (blok_ismi) values ('"+blok+"');",Statement.RETURN_GENERATED_KEYS);
-                    rs = st.executeQuery("insert into hucre (blok_ismi) values ('"+blok+"') returning hucre_no");
-                    conn.close();
-                    //rs = st.getGeneratedKeys();
-                    while(rs.next()){
-                        jdbc sub2 = new jdbc();
-                        conn2 = sub2.connectToDatabaseOrDie();
-                        Statement st2=null;
-                        st2 = conn2.createStatement();
-                        st2.executeQuery("insert into chucre values("+rs.getInt(1)+",'"+blok+"');");
-                        conn2.close();
-                    }
-                   
-             }catch (SQLException se) {
-                System.out.println(se);
-             } 
-        }
+
+          blok yeni = new blok();
+          yeni.ckhucre_ekle(jComboBox11,jTextField15);
     }//GEN-LAST:event_jButton11ActionPerformed
 
     private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
@@ -1022,9 +919,6 @@ public Connection conn2 = null;
     }//GEN-LAST:event_jTextField3ActionPerformed
 
     private void jTable3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable3MouseClicked
-       jTable3.addMouseListener(new java.awt.event.MouseAdapter() {
-         @Override
-    public void mouseClicked(java.awt.event.MouseEvent evt) {
         int row = jTable3.rowAtPoint(evt.getPoint());
         int col = jTable3.columnAtPoint(evt.getPoint());
         int column = 0;
@@ -1039,8 +933,6 @@ public Connection conn2 = null;
                 yeni.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
                 yeni.setVisible(true);
         }
-    }
-    });
     }//GEN-LAST:event_jTable3MouseClicked
 
     /**
@@ -1080,16 +972,16 @@ public Connection conn2 = null;
     private javax.swing.JButton jButton9;
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox10;
-    private javax.swing.JComboBox<String> jComboBox11;
+    public javax.swing.JComboBox<String> jComboBox10;
+    public javax.swing.JComboBox<String> jComboBox11;
     private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JComboBox<String> jComboBox3;
     private javax.swing.JComboBox<String> jComboBox4;
     private javax.swing.JComboBox jComboBox5;
-    private javax.swing.JComboBox<String> jComboBox6;
-    private javax.swing.JComboBox<String> jComboBox7;
-    private javax.swing.JComboBox<String> jComboBox8;
-    private javax.swing.JComboBox<String> jComboBox9;
+    public javax.swing.JComboBox<String> jComboBox6;
+    public javax.swing.JComboBox<String> jComboBox7;
+    public javax.swing.JComboBox<String> jComboBox8;
+    public javax.swing.JComboBox<String> jComboBox9;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -1133,7 +1025,7 @@ public Connection conn2 = null;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
+    public javax.swing.JTextField jTextField5;
     private javax.swing.JTextField jTextField6;
     private javax.swing.JTextField jTextField7;
     private javax.swing.JTextField jTextField8;

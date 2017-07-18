@@ -182,7 +182,7 @@ public class loginUI extends javax.swing.JFrame {
             else{
                 JOptionPane.showMessageDialog(null, "Hatalı kullanici adi veya sifre.");
             }
-           //conn.close();
+           conn.close();
            rs.close();
            ps.close();
         }
