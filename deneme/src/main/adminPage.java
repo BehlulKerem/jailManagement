@@ -70,7 +70,7 @@ public Connection conn2 = null;
                    jComboBox2.removeAllItems();
                    jComboBox2.addItem(rs.getString("blok_ismi"));
                  }*/
-                 //conn.close();
+                 conn.close();
                  st.close();
                  rs.close();
         }catch (SQLException se) {
@@ -422,10 +422,10 @@ public Connection conn2 = null;
     jLabel23.setBounds(190, 90, 61, 20);
 
     jTextField13.addInputMethodListener(new java.awt.event.InputMethodListener() {
+        public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
+        }
         public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
             jTextField13InputMethodTextChanged(evt);
-        }
-        public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
         }
     });
     jTextField13.addActionListener(new java.awt.event.ActionListener() {
@@ -515,8 +515,6 @@ public Connection conn2 = null;
     });
     jPanel1.add(jTextField1);
     jTextField1.setBounds(100, 10, 112, 20);
-
-    jTextField2.setText("jTextField2");
     jPanel1.add(jTextField2);
     jTextField2.setBounds(100, 40, 112, 20);
 
@@ -527,16 +525,12 @@ public Connection conn2 = null;
     });
     jPanel1.add(jTextField3);
     jTextField3.setBounds(300, 10, 110, 20);
-
-    jTextField4.setText("jTextField4");
     jPanel1.add(jTextField4);
     jTextField4.setBounds(300, 40, 110, 20);
-
-    jTextField6.setText("jTextField6");
     jPanel1.add(jTextField6);
     jTextField6.setBounds(510, 40, 113, 20);
 
-    jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "Sağlık Personeli", "Gardiyan", "Temizlik Personeli", "Yemekhane Personeli", "Yönetim" }));
+    jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-", "Sağlık Personeli", "Gardiyan", "Temizlik Personeli", "Yemekhane Personeli", "Yönetim" }));
     jComboBox1.addItemListener(new java.awt.event.ItemListener() {
         public void itemStateChanged(java.awt.event.ItemEvent evt) {
             jComboBox1ItemStateChanged(evt);
@@ -550,6 +544,8 @@ public Connection conn2 = null;
     jPanel1.add(jComboBox1);
     jComboBox1.setBounds(510, 10, 112, 20);
 
+    jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-" }));
+    jComboBox2.setSelectedItem(" ");
     jComboBox2.addActionListener(new java.awt.event.ActionListener() {
         public void actionPerformed(java.awt.event.ActionEvent evt) {
             jComboBox2ActionPerformed(evt);
@@ -570,9 +566,13 @@ public Connection conn2 = null;
     jPanel1.add(jLabel9);
     jLabel9.setBounds(440, 70, 60, 14);
 
+    jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-" }));
+    jComboBox3.setSelectedItem(" ");
     jPanel1.add(jComboBox3);
     jComboBox3.setBounds(300, 70, 110, 20);
 
+    jComboBox4.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-" }));
+    jComboBox4.setSelectedItem(" ");
     jPanel1.add(jComboBox4);
     jComboBox4.setBounds(510, 70, 114, 20);
 
@@ -605,6 +605,11 @@ public Connection conn2 = null;
             "Personel No", "SSN", "İsim", "Soyisim", "Pozisyon", "Maaş"
         }
     ));
+    jTable3.addMouseListener(new java.awt.event.MouseAdapter() {
+        public void mouseClicked(java.awt.event.MouseEvent evt) {
+            jTable3MouseClicked(evt);
+        }
+    });
     jScrollPane3.setViewportView(jTable3);
 
     javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
@@ -644,7 +649,7 @@ public Connection conn2 = null;
     jTabbedPane1.addTab("Personel", jPanel1);
 
     getContentPane().add(jTabbedPane1);
-    jTabbedPane1.setBounds(10, 0, 680, 613);
+    jTabbedPane1.setBounds(10, 0, 680, 540);
     jTabbedPane1.getAccessibleContext().setAccessibleName("");
 
     pack();
@@ -922,7 +927,7 @@ public Connection conn2 = null;
                  String blok = jComboBox10.getSelectedItem().toString();
                     //st.execute("insert into thucre (blok_ismi) values ('"+blok+"');",Statement.RETURN_GENERATED_KEYS);
                     rs = st.executeQuery("insert into hucre (blok_ismi) values ('"+blok+"') returning hucre_no");
-                    //conn.close();
+                    conn.close();
                     //rs = st.getGeneratedKeys();
                     while(rs.next()){
                         jdbc sub2 = new jdbc();
@@ -957,7 +962,7 @@ public Connection conn2 = null;
                  String blok = jComboBox11.getSelectedItem().toString();
                     //st.execute("insert into thucre (blok_ismi) values ('"+blok+"');",Statement.RETURN_GENERATED_KEYS);
                     rs = st.executeQuery("insert into hucre (blok_ismi) values ('"+blok+"') returning hucre_no");
-                    //conn.close();
+                    conn.close();
                     //rs = st.getGeneratedKeys();
                     while(rs.next()){
                         jdbc sub2 = new jdbc();
@@ -1007,6 +1012,7 @@ public Connection conn2 = null;
             //Remove rows one by one from the end of the table
         
        personel yeni = new personel();
+
        yeni.arama(personelno,ssn,isim,soyisim,pozisyon,maas,blok,camasirhane,revir,basmi,model,rowCount);
                
     }//GEN-LAST:event_jButton3ActionPerformed
@@ -1014,6 +1020,28 @@ public Connection conn2 = null;
     private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField3ActionPerformed
+
+    private void jTable3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable3MouseClicked
+       jTable3.addMouseListener(new java.awt.event.MouseAdapter() {
+         @Override
+    public void mouseClicked(java.awt.event.MouseEvent evt) {
+        int row = jTable3.rowAtPoint(evt.getPoint());
+        int col = jTable3.columnAtPoint(evt.getPoint());
+        int column = 0;
+        //String value = jTable3.getModel().getValueAt(row, column).toString();
+        // String value = jTable3.getModel().getValueAt(row, column).toString();
+          //String value = jTable3.getModel().getValueAt(row, column).toString();
+           //String value = jTable3.getModel().getValueAt(row, column).toString();
+            //String value = jTable3.getModel().getValueAt(row, column).toString();
+             //String value = jTable3.getModel().getValueAt(row, column).toString();
+        if (row >= 0 && col >= 0) {
+                personelDetails yeni = new personelDetails();
+                yeni.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+                yeni.setVisible(true);
+        }
+    }
+    });
+    }//GEN-LAST:event_jTable3MouseClicked
 
     /**
      * @param args the command line arguments
