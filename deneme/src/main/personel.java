@@ -25,9 +25,9 @@ public class personel {
             ResultSet rs,rs2 = null;
            
         if(pozisyon.equals("Gardiyan")){
-            
-            if((!blok.equals("")&&!camasirhane.equals(""))||(!blok.equals("")&&!revir.equals(""))||
-                    (!revir.equals("")&&!camasirhane.equals(""))){
+         
+            if((!blok.equals(" ")&&!camasirhane.equals(" "))||(!blok.equals(" ")&&!revir.equals(" "))||
+                    (!revir.equals(" ")&&!camasirhane.equals(" "))){
                  JOptionPane.showMessageDialog(null, "Gardiyan birden fazla konumda bulunamaz! Tek bir yer seçin.");
             }
             else{
@@ -45,6 +45,7 @@ public class personel {
                 ps.setString(3, blok);
                 ps.setString(4, camasirhane);
                 ps.setInt(5, ssn);
+                ps.execute();
                 ps.close();
                 //conn.close();
             }

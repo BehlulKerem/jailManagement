@@ -707,7 +707,9 @@ public Connection conn2 = null;
             String blok = jComboBox2.getSelectedItem().toString();
             String camasirhane = jComboBox3.getSelectedItem().toString();
             String revir = jComboBox4.getSelectedItem().toString();
-            Boolean basmi = jCheckBox1.isSelected(); 
+            Boolean basmi;
+            if(jCheckBox1.isSelected()) basmi=true;
+            else basmi = false;
             personel person = new personel();
             
             person.kaydet(personelno,ssn,isim,soyisim,pozisyon,maas,blok,camasirhane,revir,basmi);
