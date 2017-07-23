@@ -5,6 +5,8 @@
  */
 package main;
 
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author MesutKutlu
@@ -91,41 +93,40 @@ public class userPage extends javax.swing.JFrame {
         jTable2 = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(683, 625));
 
         jPanel1.setLayout(null);
 
         jLabel1.setText("Mahkum SSN:");
         jPanel1.add(jLabel1);
-        jLabel1.setBounds(40, 30, 84, 15);
+        jLabel1.setBounds(40, 30, 65, 14);
 
         jLabel2.setText("İsim:");
         jPanel1.add(jLabel2);
-        jLabel2.setBounds(250, 30, 70, 15);
+        jLabel2.setBounds(250, 30, 70, 14);
 
         jLabel3.setText("Soyisim:");
         jPanel1.add(jLabel3);
-        jLabel3.setBounds(460, 30, 70, 15);
+        jLabel3.setBounds(460, 30, 70, 14);
 
         jLabel4.setText("Hücre Tipi:");
         jPanel1.add(jLabel4);
-        jLabel4.setBounds(40, 70, 80, 15);
+        jLabel4.setBounds(40, 70, 80, 14);
 
         jLabel5.setText("Giriş Tarihi:");
         jPanel1.add(jLabel5);
-        jLabel5.setBounds(250, 70, 72, 15);
+        jLabel5.setBounds(250, 70, 53, 14);
 
         jLabel6.setText("Çıkış Tarihi:");
         jPanel1.add(jLabel6);
-        jLabel6.setBounds(460, 70, 75, 15);
+        jLabel6.setBounds(460, 70, 54, 14);
 
         jLabel7.setText("Hücre No:");
         jPanel1.add(jLabel7);
-        jLabel7.setBounds(40, 110, 80, 15);
+        jLabel7.setBounds(40, 110, 80, 14);
 
         jLabel8.setText("Blok:");
         jPanel1.add(jLabel8);
-        jLabel8.setBounds(250, 110, 70, 15);
+        jLabel8.setBounds(250, 110, 70, 14);
 
         jTextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -133,28 +134,27 @@ public class userPage extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jTextField1);
-        jTextField1.setBounds(130, 30, 90, 19);
+        jTextField1.setBounds(130, 30, 90, 20);
         jPanel1.add(jTextField2);
-        jTextField2.setBounds(130, 70, 90, 19);
+        jTextField2.setBounds(130, 70, 90, 20);
         jPanel1.add(jTextField3);
-        jTextField3.setBounds(130, 110, 90, 19);
+        jTextField3.setBounds(130, 110, 90, 20);
         jPanel1.add(jTextField4);
-        jTextField4.setBounds(330, 30, 100, 19);
+        jTextField4.setBounds(330, 30, 100, 20);
         jPanel1.add(jTextField5);
-        jTextField5.setBounds(330, 70, 100, 19);
+        jTextField5.setBounds(330, 70, 100, 20);
         jPanel1.add(jTextField7);
-        jTextField7.setBounds(540, 30, 80, 19);
+        jTextField7.setBounds(540, 30, 80, 20);
         jPanel1.add(jTextField8);
-        jTextField8.setBounds(540, 70, 80, 19);
+        jTextField8.setBounds(540, 70, 80, 20);
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jComboBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBox1ActionPerformed(evt);
             }
         });
         jPanel1.add(jComboBox1);
-        jComboBox1.setBounds(330, 110, 68, 24);
+        jComboBox1.setBounds(310, 110, 70, 20);
 
         jButton1.setText("Ara");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -166,6 +166,11 @@ public class userPage extends javax.swing.JFrame {
         jButton1.setBounds(210, 155, 88, 30);
 
         jButton2.setText("Hepsi");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
         jPanel1.add(jButton2);
         jButton2.setBounds(349, 155, 100, 30);
 
@@ -191,16 +196,15 @@ public class userPage extends javax.swing.JFrame {
 
         jLabel9.setText("Blok:");
         jPanel2.add(jLabel9);
-        jLabel9.setBounds(40, 40, 31, 20);
+        jLabel9.setBounds(40, 40, 23, 20);
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jComboBox2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBox2ActionPerformed(evt);
             }
         });
         jPanel2.add(jComboBox2);
-        jComboBox2.setBounds(140, 40, 68, 24);
+        jComboBox2.setBounds(110, 40, 60, 20);
 
         jButton3.setText("Listele");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -209,7 +213,7 @@ public class userPage extends javax.swing.JFrame {
             }
         });
         jPanel2.add(jButton3);
-        jButton3.setBounds(300, 40, 75, 25);
+        jButton3.setBounds(300, 40, 63, 23);
 
         jLabel10.setText("Revirdeki Mevcut Yatak Sayisi:");
         jPanel2.add(jLabel10);
@@ -222,23 +226,24 @@ public class userPage extends javax.swing.JFrame {
         jLabel12.setText("Revirdeki Personel Sayisi:");
         jPanel2.add(jLabel12);
         jLabel12.setBounds(40, 110, 200, 30);
-
-        jTextField6.setText("jTextField6");
         jPanel2.add(jTextField6);
-        jTextField6.setBounds(300, 190, 70, 19);
+        jTextField6.setBounds(300, 190, 70, 20);
 
-        jTextField9.setText("jTextField9");
+        jTextField9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField9ActionPerformed(evt);
+            }
+        });
         jPanel2.add(jTextField9);
-        jTextField9.setBounds(300, 230, 69, 20);
+        jTextField9.setBounds(300, 230, 60, 20);
 
-        jTextField10.setText("jTextField10");
         jTextField10.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField10ActionPerformed(evt);
             }
         });
         jPanel2.add(jTextField10);
-        jTextField10.setBounds(300, 270, 77, 20);
+        jTextField10.setBounds(300, 270, 60, 20);
 
         jLabel13.setText("Tek Kişilik Hücredeki Mahkum Sayisi:");
         jPanel2.add(jLabel13);
@@ -247,19 +252,16 @@ public class userPage extends javax.swing.JFrame {
         jLabel14.setText("Çok Kişilik Hücredeki Mahkum Sayisi:");
         jPanel2.add(jLabel14);
         jLabel14.setBounds(40, 260, 240, 30);
-
-        jTextField11.setText("jTextField11");
         jPanel2.add(jTextField11);
-        jTextField11.setBounds(300, 150, 77, 19);
+        jTextField11.setBounds(300, 150, 60, 20);
 
-        jTextField12.setText("jTextField12");
         jTextField12.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField12ActionPerformed(evt);
             }
         });
         jPanel2.add(jTextField12);
-        jTextField12.setBounds(300, 110, 77, 19);
+        jTextField12.setBounds(300, 110, 60, 20);
 
         jButton4.setText("Tüm Bloklar için Listele");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
@@ -268,27 +270,17 @@ public class userPage extends javax.swing.JFrame {
             }
         });
         jPanel2.add(jButton4);
-        jButton4.setBounds(430, 40, 190, 25);
-
-        jTextField13.setText("jTextField13");
+        jButton4.setBounds(430, 40, 190, 23);
         jPanel2.add(jTextField13);
-        jTextField13.setBounds(470, 110, 77, 19);
-
-        jTextField14.setText("jTextField14");
+        jTextField13.setBounds(470, 110, 70, 20);
         jPanel2.add(jTextField14);
-        jTextField14.setBounds(470, 150, 77, 19);
-
-        jTextField15.setText("jTextField15");
+        jTextField14.setBounds(470, 150, 70, 20);
         jPanel2.add(jTextField15);
-        jTextField15.setBounds(470, 190, 77, 19);
-
-        jTextField16.setText("jTextField16");
+        jTextField15.setBounds(470, 190, 70, 20);
         jPanel2.add(jTextField16);
-        jTextField16.setBounds(470, 230, 77, 19);
-
-        jTextField17.setText("jTextField17");
+        jTextField16.setBounds(470, 230, 70, 20);
         jPanel2.add(jTextField17);
-        jTextField17.setBounds(470, 270, 77, 19);
+        jTextField17.setBounds(470, 270, 70, 20);
 
         jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
         jPanel2.add(jSeparator1);
@@ -300,41 +292,40 @@ public class userPage extends javax.swing.JFrame {
 
         jLabel15.setText("Personel No:");
         jPanel3.add(jLabel15);
-        jLabel15.setBounds(30, 20, 77, 15);
+        jLabel15.setBounds(30, 20, 61, 14);
 
         jLabel16.setText("SSN:");
         jPanel3.add(jLabel16);
-        jLabel16.setBounds(30, 50, 70, 15);
+        jLabel16.setBounds(30, 50, 70, 14);
 
         jLabel17.setText("Revir:");
         jPanel3.add(jLabel17);
-        jLabel17.setBounds(30, 80, 70, 15);
+        jLabel17.setBounds(30, 80, 70, 14);
 
         jLabel18.setText("İsim:");
         jPanel3.add(jLabel18);
-        jLabel18.setBounds(240, 20, 70, 15);
+        jLabel18.setBounds(240, 20, 70, 14);
 
         jLabel19.setText("Soyisim:");
         jPanel3.add(jLabel19);
-        jLabel19.setBounds(240, 50, 70, 15);
+        jLabel19.setBounds(240, 50, 70, 14);
 
         jLabel21.setText("Pozisyon:");
         jPanel3.add(jLabel21);
-        jLabel21.setBounds(440, 20, 90, 15);
+        jLabel21.setBounds(440, 20, 90, 14);
 
         jLabel22.setText("Maaş:");
         jPanel3.add(jLabel22);
-        jLabel22.setBounds(440, 50, 70, 15);
+        jLabel22.setBounds(440, 50, 70, 14);
 
-        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jPanel3.add(jComboBox3);
-        jComboBox3.setBounds(520, 20, 68, 20);
+        jComboBox3.setBounds(520, 20, 90, 20);
         jPanel3.add(jTextField18);
-        jTextField18.setBounds(520, 50, 90, 19);
+        jTextField18.setBounds(520, 50, 90, 20);
         jPanel3.add(jTextField19);
-        jTextField19.setBounds(310, 20, 100, 19);
+        jTextField19.setBounds(310, 20, 100, 20);
         jPanel3.add(jTextField20);
-        jTextField20.setBounds(310, 50, 100, 19);
+        jTextField20.setBounds(310, 50, 100, 20);
 
         jTextField21.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -342,11 +333,11 @@ public class userPage extends javax.swing.JFrame {
             }
         });
         jPanel3.add(jTextField21);
-        jTextField21.setBounds(120, 20, 90, 19);
+        jTextField21.setBounds(120, 20, 90, 20);
         jPanel3.add(jTextField22);
-        jTextField22.setBounds(120, 50, 90, 19);
+        jTextField22.setBounds(120, 50, 90, 20);
         jPanel3.add(jTextField23);
-        jTextField23.setBounds(120, 80, 90, 19);
+        jTextField23.setBounds(120, 80, 90, 20);
 
         jButton5.setText("Ara");
         jButton5.addActionListener(new java.awt.event.ActionListener() {
@@ -355,11 +346,16 @@ public class userPage extends javax.swing.JFrame {
             }
         });
         jPanel3.add(jButton5);
-        jButton5.setBounds(210, 130, 55, 25);
+        jButton5.setBounds(210, 130, 49, 23);
 
         jButton6.setText("Hepsi");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
         jPanel3.add(jButton6);
-        jButton6.setBounds(350, 130, 69, 25);
+        jButton6.setBounds(350, 130, 59, 23);
 
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -383,7 +379,7 @@ public class userPage extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1)
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 687, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -432,6 +428,27 @@ public class userPage extends javax.swing.JFrame {
     private void jTextField21ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField21ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField21ActionPerformed
+
+    private void jTextField9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField9ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField9ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        mahkum mk = new mahkum();
+        DefaultTableModel model  = (DefaultTableModel) jTable1.getModel();
+        int rowCount = model.getRowCount();
+        mk.hepsi(model, rowCount);
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        // TODO add your handling code here:
+        personel pers = new personel();
+        DefaultTableModel model  = (DefaultTableModel) jTable2.getModel();
+        int rowCount = model.getRowCount();
+        pers.hepsi(model, rowCount);
+        
+    }//GEN-LAST:event_jButton6ActionPerformed
 
     /**
      * @param args the command line arguments

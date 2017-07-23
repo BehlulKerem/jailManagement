@@ -174,7 +174,6 @@ public Connection conn2 = null;
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Personel");
-        setPreferredSize(new java.awt.Dimension(683, 625));
         getContentPane().setLayout(null);
 
         jPanel2.setLayout(null);
@@ -193,21 +192,21 @@ public Connection conn2 = null;
 
         jLabel15.setText("Mahkum SSN:");
         jPanel2.add(jLabel15);
-        jLabel15.setBounds(32, 21, 65, 14);
+        jLabel15.setBounds(32, 21, 80, 14);
         jPanel2.add(jTextField8);
         jTextField8.setBounds(325, 20, 113, 20);
 
         jLabel17.setText("Giriş Tarihi:");
         jPanel2.add(jLabel17);
-        jLabel17.setBounds(241, 55, 53, 14);
+        jLabel17.setBounds(241, 55, 70, 14);
         jPanel2.add(jTextField11);
         jTextField11.setBounds(536, 20, 108, 20);
 
         jLabel18.setText("Çıkış Tarihi:");
         jPanel2.add(jLabel18);
-        jLabel18.setBounds(456, 54, 54, 14);
+        jLabel18.setBounds(456, 54, 70, 14);
 
-        jComboBox5.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Tek kişilik hücre", "İki kişilik hücre" }));
+        jComboBox5.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Tek kişilik hücre", "Çok kişilik hücre" }));
         jComboBox5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBox5ActionPerformed(evt);
@@ -218,7 +217,7 @@ public Connection conn2 = null;
 
         jLabel19.setText("Hücre tipi:");
         jPanel2.add(jLabel19);
-        jLabel19.setBounds(32, 55, 49, 14);
+        jLabel19.setBounds(32, 55, 60, 14);
 
         jButton4.setText("Kaydet");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
@@ -227,7 +226,7 @@ public Connection conn2 = null;
             }
         });
         jPanel2.add(jButton4);
-        jButton4.setBounds(227, 125, 67, 23);
+        jButton4.setBounds(227, 125, 80, 23);
 
         jButton6.setText("Ara");
         jPanel2.add(jButton6);
@@ -235,7 +234,7 @@ public Connection conn2 = null;
 
         jLabel24.setText("Hücre No:");
         jPanel2.add(jLabel24);
-        jLabel24.setBounds(32, 93, 48, 14);
+        jLabel24.setBounds(32, 93, 60, 14);
         jPanel2.add(jTextField14);
         jTextField14.setBounds(110, 90, 99, 20);
 
@@ -344,7 +343,7 @@ public Connection conn2 = null;
 
     jLabel11.setText("Blok İsmi:");
     jPanel3.add(jLabel11);
-    jLabel11.setBounds(40, 55, 45, 14);
+    jLabel11.setBounds(40, 55, 60, 14);
 
     jTextField5.addActionListener(new java.awt.event.ActionListener() {
         public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -361,7 +360,7 @@ public Connection conn2 = null;
         }
     });
     jPanel3.add(jButton1);
-    jButton1.setBounds(184, 51, 51, 23);
+    jButton1.setBounds(184, 51, 70, 23);
 
     jLabel20.setText("Revir:");
     jPanel3.add(jLabel20);
@@ -397,7 +396,7 @@ public Connection conn2 = null;
         }
     });
     jPanel3.add(jButton5);
-    jButton5.setBounds(330, 90, 51, 23);
+    jButton5.setBounds(370, 90, 70, 23);
 
     jButton7.setText("Ekle");
     jButton7.addActionListener(new java.awt.event.ActionListener() {
@@ -406,7 +405,7 @@ public Connection conn2 = null;
         }
     });
     jPanel3.add(jButton7);
-    jButton7.setBounds(189, 129, 51, 23);
+    jButton7.setBounds(189, 129, 60, 23);
 
     jButton8.setText("Ekle");
     jButton8.addActionListener(new java.awt.event.ActionListener() {
@@ -415,11 +414,11 @@ public Connection conn2 = null;
         }
     });
     jPanel3.add(jButton8);
-    jButton8.setBounds(189, 172, 51, 23);
+    jButton8.setBounds(189, 172, 60, 23);
 
     jLabel23.setText("Yatak Sayısı:");
     jPanel3.add(jLabel23);
-    jLabel23.setBounds(190, 90, 61, 20);
+    jLabel23.setBounds(190, 90, 90, 20);
 
     jTextField13.addInputMethodListener(new java.awt.event.InputMethodListener() {
         public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
@@ -434,14 +433,14 @@ public Connection conn2 = null;
         }
     });
     jPanel3.add(jTextField13);
-    jTextField13.setBounds(260, 90, 57, 20);
+    jTextField13.setBounds(290, 90, 57, 20);
 
     jLabel25.setText("Tek Kişilik Hücre:");
     jPanel3.add(jLabel25);
-    jLabel25.setBounds(40, 217, 79, 14);
+    jLabel25.setBounds(30, 220, 110, 14);
 
     jPanel3.add(jComboBox10);
-    jComboBox10.setBounds(137, 214, 42, 20);
+    jComboBox10.setBounds(150, 220, 42, 20);
 
     jButton10.setText("Ekle");
     jButton10.addActionListener(new java.awt.event.ActionListener() {
@@ -450,7 +449,7 @@ public Connection conn2 = null;
         }
     });
     jPanel3.add(jButton10);
-    jButton10.setBounds(266, 213, 51, 23);
+    jButton10.setBounds(270, 220, 70, 23);
 
     jTextField9.addActionListener(new java.awt.event.ActionListener() {
         public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -458,16 +457,16 @@ public Connection conn2 = null;
         }
     });
     jPanel3.add(jTextField9);
-    jTextField9.setBounds(189, 214, 51, 20);
+    jTextField9.setBounds(210, 220, 51, 20);
 
     jLabel26.setText("Çok Kişilik Hücre:");
     jPanel3.add(jLabel26);
-    jLabel26.setBounds(40, 258, 80, 14);
+    jLabel26.setBounds(30, 260, 110, 14);
 
     jPanel3.add(jComboBox11);
-    jComboBox11.setBounds(138, 255, 41, 20);
+    jComboBox11.setBounds(150, 260, 41, 20);
     jPanel3.add(jTextField15);
-    jTextField15.setBounds(189, 255, 51, 20);
+    jTextField15.setBounds(210, 260, 51, 20);
 
     jButton11.setText("Ekle");
     jButton11.addActionListener(new java.awt.event.ActionListener() {
@@ -476,7 +475,7 @@ public Connection conn2 = null;
         }
     });
     jPanel3.add(jButton11);
-    jButton11.setBounds(266, 254, 51, 23);
+    jButton11.setBounds(270, 260, 70, 23);
 
     jTabbedPane1.addTab("Bloklar", jPanel3);
 

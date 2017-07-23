@@ -63,7 +63,7 @@ public class blok {
             PreparedStatement ps = null;
             ResultSet rs = null;
             String blok = jComboBox6.getSelectedItem().toString();
-            ps = conn.prepareStatement("insert into revir values(?,0,?);");    
+            ps = conn.prepareStatement("insert into revir values(?,?);");    
             ps.setInt(1, sayi);
             ps.setString(2, blok);
             ps.execute();
@@ -133,11 +133,10 @@ public class blok {
                     }
                     ps.close();
                     rs.close();
-                   
              }catch (SQLException se) {
                 System.out.println(se);
              } 
-        }
+        }    
     }
 
     void ckhucre_ekle(JComboBox<String> jComboBox11, JTextField jTextField15) {

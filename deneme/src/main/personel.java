@@ -160,7 +160,7 @@ public class personel {
                 ps = conn.prepareStatement(aramametini);
                 count2++;
             }
-            if(isim=="");
+            if(isim.equals(""));
             else{
                 if(count2!=1)
                     aramametini+="and ";
@@ -168,7 +168,7 @@ public class personel {
                 ps = conn.prepareStatement(aramametini);
                 count2++;
             }
-            if(soyisim=="");
+            if(soyisim.equals(""));
             else{
                 if(count2!=1)
                     aramametini+="and ";
