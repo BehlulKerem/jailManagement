@@ -174,7 +174,11 @@ public Connection conn2 = null;
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Personel");
+        setPreferredSize(new java.awt.Dimension(687, 623));
         getContentPane().setLayout(null);
+
+        jTabbedPane1.setMinimumSize(new java.awt.Dimension(687, 625));
+        jTabbedPane1.setPreferredSize(new java.awt.Dimension(687, 625));
 
         jPanel2.setLayout(null);
         jPanel2.add(jLabel12);

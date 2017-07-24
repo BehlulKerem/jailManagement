@@ -227,7 +227,7 @@ public class userPage extends javax.swing.JFrame {
         jPanel2.add(jLabel12);
         jLabel12.setBounds(40, 110, 200, 30);
         jPanel2.add(jTextField6);
-        jTextField6.setBounds(300, 190, 70, 20);
+        jTextField6.setBounds(300, 190, 60, 20);
 
         jTextField9.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -284,7 +284,7 @@ public class userPage extends javax.swing.JFrame {
 
         jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
         jPanel2.add(jSeparator1);
-        jSeparator1.setBounds(410, 30, 40, 280);
+        jSeparator1.setBounds(410, 30, 10, 280);
 
         jTabbedPane1.addTab("Bloklar", jPanel2);
 
