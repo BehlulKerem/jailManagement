@@ -93,6 +93,7 @@ public class userPage extends javax.swing.JFrame {
         jTable2 = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("JailManage");
 
         jPanel1.setLayout(null);
 

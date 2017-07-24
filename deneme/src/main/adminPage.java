@@ -173,7 +173,7 @@ public Connection conn2 = null;
         jCheckBox1 = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Personel");
+        setTitle("Admin Management");
         setPreferredSize(new java.awt.Dimension(687, 623));
         getContentPane().setLayout(null);
 
@@ -926,17 +926,18 @@ public Connection conn2 = null;
     private void jTable3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable3MouseClicked
         int row = jTable3.rowAtPoint(evt.getPoint());
         int col = jTable3.columnAtPoint(evt.getPoint());
-        int column = 0;
-        //String value = jTable3.getModel().getValueAt(row, column).toString();
-        // String value = jTable3.getModel().getValueAt(row, column).toString();
-          //String value = jTable3.getModel().getValueAt(row, column).toString();
-           //String value = jTable3.getModel().getValueAt(row, column).toString();
-            //String value = jTable3.getModel().getValueAt(row, column).toString();
-             //String value = jTable3.getModel().getValueAt(row, column).toString();
+        Integer personelno = Integer.valueOf(jTable3.getModel().getValueAt(row, 0).toString());
+        Integer ssn = Integer.valueOf(jTable3.getModel().getValueAt(row, 1).toString());
+        String isim = jTable3.getModel().getValueAt(row, 2).toString();
+        String soyisim = jTable3.getModel().getValueAt(row, 3).toString();
+        String pozisyon = jTable3.getModel().getValueAt(row, 4).toString();
+        Double maas = Double.valueOf(jTable3.getModel().getValueAt(row, 5).toString());
         if (row >= 0 && col >= 0) {
                 personelDetails yeni = new personelDetails();
+                yeni.infos(personelno,ssn,isim,soyisim,pozisyon,maas);
                 yeni.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
                 yeni.setVisible(true);
+                
         }
     }//GEN-LAST:event_jTable3MouseClicked
 

@@ -15,7 +15,7 @@ import javax.swing.table.DefaultTableModel;
 
 public class personel {
     public Connection conn = null;
-    public void kaydet(int personelno,int ssn,String isim,String soyisim,String pozisyon,double maas,String blok,String camasirhane,String revir,Boolean basmi){
+    void kaydet(int personelno,int ssn,String isim,String soyisim,String pozisyon,double maas,String blok,String camasirhane,String revir,Boolean basmi){
         
         
         try{  
@@ -106,7 +106,7 @@ public class personel {
           System.out.println(se);
         } //mkutlu point
     }
-    public void hepsi(DefaultTableModel model,int rowCount){
+    void hepsi(DefaultTableModel model,int rowCount){
        
         for (int i = rowCount - 1; i >= 0; i--) {
             model.removeRow(i);
@@ -134,7 +134,7 @@ public class personel {
         }catch (SQLException se) {
         } 
     }
-    public void arama(Integer personelno,Integer ssn,String isim,String soyisim,String pozisyon,Double maas,String blok,String camasirhane,String revir,Boolean basmi,DefaultTableModel model,int rowCount){
+    void arama(Integer personelno,Integer ssn,String isim,String soyisim,String pozisyon,Double maas,String blok,String camasirhane,String revir,Boolean basmi,DefaultTableModel model,int rowCount){
         String aramametini="";
         try{      
         jdbc sub = new jdbc();
@@ -241,6 +241,46 @@ public class personel {
             rs.close();
         }catch (SQLException se) {
             System.out.println(se);
+        } 
+    }
+    void edit(String isim, String soyisim, Integer ssn, Integer personelno, Double maas, String pozisyon, String text, String text0, Integer text1, String text2, Double text3, Integer text4) {
+         try{  
+            jdbc sub = new jdbc();
+            conn = sub.connectToDatabaseOrDie();
+            PreparedStatement ps = null;
+            ps = conn.prepareStatement("update personel set isim=?,soyisim=?,personelno=?,maas=?,ssn=?"
+                    + " where isim=? and soyisim=? and personelno=? and maas=? and ssn=?;");
+              ps.setString(1, text);
+              ps.setString(2, text0);
+              ps.setInt(3, text1);
+              ps.setDouble(4, text3);
+              ps.setInt(5, text4);
+              ps.setString(6, isim);
+              ps.setString(7, soyisim);
+              ps.setInt(8, personelno);
+              ps.setDouble(9, maas);
+              ps.setInt(10, ssn);
+              ps.execute();
+             System.out.println(ps.toString());
+           }catch (SQLException se) {
+          System.out.println(se);
+        } 
+    }
+    void sil(String text, String text0, Integer valueOf, String text1, Double valueOf0, Integer valueOf1) {
+        try{  
+            jdbc sub = new jdbc();
+            conn = sub.connectToDatabaseOrDie();
+            PreparedStatement ps = null;
+            ps = conn.prepareStatement("delete from personel where isim=? and soyisim=? and ssn=? and maas=? and personelno=?");
+              ps.setString(1, text);
+              ps.setString(2, text0);
+              ps.setInt(3, valueOf);
+              ps.setDouble(4, valueOf0);
+              ps.setInt(5, valueOf1);              
+              ps.execute();
+             System.out.println(ps.toString());
+           }catch (SQLException se) {
+          System.out.println(se);
         } 
     }
         
