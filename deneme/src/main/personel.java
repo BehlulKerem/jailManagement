@@ -41,7 +41,7 @@ public class personel {
                 ps.execute();
                 ps = conn.prepareStatement("insert into gpersonel values(?,?,?,?,?);");
                 ps.setString(1, revir);
-                ps.setString(2, basmi.toString().toUpperCase());
+                ps.setBoolean(2, basmi);
                 ps.setString(3, blok);
                 ps.setString(4, camasirhane);
                 ps.setInt(5, ssn);
@@ -115,18 +115,36 @@ public class personel {
          try{      
         jdbc sub = new jdbc();
             conn = sub.connectToDatabaseOrDie();
-            Statement st = null;
-            ResultSet rs = null;
+            Statement st=null,st2=null,st3=null,st4=null,st5=null;
+            ResultSet rs = null,rs2 = null,rs3 = null,rs4 = null,rs5 = null;
             st = conn.createStatement();
-            
+            st2 = conn.createStatement();
+            st3 = conn.createStatement();
+            st4 = conn.createStatement();
+            st5 = conn.createStatement();
             rs = st.executeQuery("select * from personel");  
             while ( rs.next()){
                 int personelno = rs.getInt("personelno");
                 int ssn = rs.getInt("ssn");
                 String isim =rs.getString("isim") ;
                 String soyisim = rs.getString("soyisim");
-                double maas = rs.getDouble("maas");                
-                model.addRow(new Object[]{personelno,ssn,isim,soyisim,"-",maas});
+                double maas = rs.getDouble("maas");
+                rs2 = st2.executeQuery("select count(*) from gpersonel where ssn="+ssn);
+                rs2.next();
+                if(rs2.getInt("count")!=0)
+                    model.addRow(new Object[]{personelno,ssn,isim,soyisim,"Gardiyan",maas});
+                rs3 = st3.executeQuery("select count(*) from spersonel where ssn="+ssn);
+                rs3.next();
+                if(rs3.getInt("count")!=0)
+                    model.addRow(new Object[]{personelno,ssn,isim,soyisim,"Sağlık P.",maas});
+                rs4 = st4.executeQuery("select count(*) from tpersonel where ssn="+ssn);
+                rs4.next();
+                if(rs4.getInt("count")!=0)
+                    model.addRow(new Object[]{personelno,ssn,isim,soyisim,"Temizlik P.",maas});
+                rs5 = st2.executeQuery("select count(*) from ypersonel where ssn="+ssn);
+                rs5.next();
+                if(rs5.getInt("count")!=0)
+                    model.addRow(new Object[]{personelno,ssn,isim,soyisim,"Yemekhane P.",maas});
             }
             //conn.close();
             st.close();
@@ -142,14 +160,26 @@ public class personel {
             PreparedStatement ps = null;
             ResultSet rs = null;
             int count=1,count2=1;
+            if(pozisyon.equals("-"))
+                aramametini  ="select * from personel p where ";
+            if(pozisyon.equals("Gardiyan"))
+                aramametini  ="select p.personelno,p.ssn,p.isim,p.soyisim,p.maas from gpersonel g,personel p where p.ssn=g.ssn ";
+            else if(pozisyon.equals("Sağlık Personeli"))
+                aramametini  ="select p.personelno,p.ssn,p.isim,p.soyisim,p.maas from spersonel g,personel p where p.ssn=g.ssn ";
+            else if(pozisyon.equals("Yemekhane Personeli"))
+                aramametini  ="select p.personelno,p.ssn,p.isim,p.soyisim,p.maas from ypersonel g,personel p where p.ssn=g.ssn ";
+            else if(pozisyon.equals("Temizlik Personeli"))
+                aramametini  ="select p.personelno,p.ssn,p.isim,p.soyisim,p.maas from tpersonel g,personel p where p.ssn=g.ssn ";
+            else if(pozisyon.equals("Yönetim"))
+                aramametini  ="select p.personelno,p.ssn,p.isim,p.soyisim,p.maas from yopersonel g,personel p where p.ssn=g.ssn ";
             
-            aramametini  ="select * from personel where ";
             ps = conn.prepareStatement(aramametini);
 
             System.out.println("-"+isim+"-");
             if(personelno==null);
             else{
-                aramametini+="personelno=? ";
+                aramametini+="and ";
+                aramametini+="p.personelno=? ";
                 ps = conn.prepareStatement(aramametini);
                 count2++;
             }
@@ -157,7 +187,7 @@ public class personel {
             else{
                 if(count2!=1)
                     aramametini+="and ";
-                aramametini+="ssn=? ";
+                aramametini+="p.ssn=? ";
                 ps = conn.prepareStatement(aramametini);
                 count2++;
             }
@@ -165,7 +195,7 @@ public class personel {
             else{
                 if(count2!=1)
                     aramametini+="and ";
-                aramametini+="isim=? ";
+                aramametini+="p.isim=? ";
                 ps = conn.prepareStatement(aramametini);
                 count2++;
             }
@@ -173,7 +203,7 @@ public class personel {
             else{
                 if(count2!=1)
                     aramametini+="and ";
-                aramametini+="soyisim=? ";
+                aramametini+="p.soyisim=? ";
                 ps = conn.prepareStatement(aramametini);
                 count2++;
             }
@@ -181,7 +211,7 @@ public class personel {
             else{
                 if(count2!=1)
                     aramametini+="and ";
-                aramametini+="maas=? ";
+                aramametini+="p.maas=? ";
                 ps = conn.prepareStatement(aramametini);
                 count2++;
             }
@@ -225,18 +255,7 @@ public class personel {
                 //EKLEME YAPILACAK.
                 model.addRow(new Object[]{personelno2,ssn2,isim2,soyisim2,"-",maas2});
             }
-//            if(pozisyon.equals("Gardiyan"))
-//                aramametini  ="select p.personelno,p.ssn,p.isim,p.soyisim, from gpersonel g,personel p where ";
-//            else if(pozisyon.equals("Sağlık Personeli"))
-//                aramametini  ="select * from spersonel where ";
-//            else if(pozisyon.equals("Yemekhane Personeli"))
-//                aramametini  ="select * from ypersonel where ";
-//            else if(pozisyon.equals("Temizlik Personeli"))
-//                aramametini  ="select * from tpersonel where ";
-//            else if(pozisyon.equals("Yönetim"))
-//                aramametini  ="select * from yopersonel where ";
-//            else if(pozisyon.equals(" "))
-//            conn.close();
+
             ps.close();
             rs.close();
         }catch (SQLException se) {
@@ -270,8 +289,9 @@ public class personel {
         try{  
             jdbc sub = new jdbc();
             conn = sub.connectToDatabaseOrDie();
-            PreparedStatement ps = null;
+            PreparedStatement ps,ps2 = null;
             ps = conn.prepareStatement("delete from personel where isim=? and soyisim=? and ssn=? and maas=? and personelno=?");
+            
               ps.setString(1, text);
               ps.setString(2, text0);
               ps.setInt(3, valueOf);
@@ -279,6 +299,26 @@ public class personel {
               ps.setInt(5, valueOf1);              
               ps.execute();
              System.out.println(ps.toString());
+             if(text1.equals("Gardiyan")){
+                  ps2 = conn.prepareStatement("delete from gpersonel where ssn=?");
+                  ps2.setInt(1, valueOf);
+                  ps2.execute();
+             }
+             else if(text1.equals("Sağlık P.")){
+                  ps2 = conn.prepareStatement("delete from gpersonel where ssn=?");
+                  ps2.setInt(1, valueOf);
+                  ps2.execute();
+             }
+             else if(text1.equals("Yemekhane P.")){
+                  ps2 = conn.prepareStatement("delete from gpersonel where ssn=?");
+                  ps2.setInt(1, valueOf);
+                  ps2.execute();
+             }
+             else if(text1.equals("Temizlik P.")){
+                  ps2 = conn.prepareStatement("delete from gpersonel where ssn=?");
+                  ps2.setInt(1, valueOf);
+                  ps2.execute();
+             }
            }catch (SQLException se) {
           System.out.println(se);
         } 
