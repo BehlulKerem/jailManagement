@@ -47,7 +47,7 @@ public class personelDetails extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(400, 200));
+        setPreferredSize(new java.awt.Dimension(400, 300));
         getContentPane().setLayout(null);
         getContentPane().add(jLabel1);
         jLabel1.setBounds(10, 30, 120, 150);

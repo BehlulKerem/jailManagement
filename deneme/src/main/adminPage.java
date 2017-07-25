@@ -110,7 +110,11 @@ public Connection conn2 = null;
         jLabel24 = new javax.swing.JLabel();
         jTextField14 = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jTable1 = new javax.swing.JTable(){
+            public boolean isCellEditable(int rowIndex, int colIndex) {
+                return false;   //Disallow the editing of any cell
+            }
+        };
         jLabel16 = new javax.swing.JLabel();
         jComboBox9 = new javax.swing.JComboBox<>();
         jButton12 = new javax.swing.JButton();
@@ -266,6 +270,11 @@ public Connection conn2 = null;
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
+            }
+        });
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable1MouseClicked(evt);
             }
         });
         jScrollPane1.setViewportView(jTable1);
@@ -940,6 +949,27 @@ public Connection conn2 = null;
                 
         }
     }//GEN-LAST:event_jTable3MouseClicked
+
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+        int row = jTable1.rowAtPoint(evt.getPoint());
+        int col = jTable1.columnAtPoint(evt.getPoint());
+       
+        Integer ssn = Integer.valueOf(jTable1.getModel().getValueAt(row, 0).toString());
+        String isim = jTable1.getModel().getValueAt(row, 1).toString();
+        String soyisim = jTable1.getModel().getValueAt(row, 2).toString();
+        String blok = jTable1.getModel().getValueAt(row, 3).toString();
+        String hucre_tipi = jTable1.getModel().getValueAt(row, 5).toString();
+        Integer hucre_no = Integer.valueOf(jTable1.getModel().getValueAt(row, 4).toString());
+        String giris_tarihi =  jTable1.getModel().getValueAt(row, 6).toString();
+        String cikis_tarihi = jTable1.getModel().getValueAt(row, 7).toString();
+        if (row >= 0 && col >= 0) {
+                mahkumDetails yeni = new mahkumDetails();
+               yeni.infos(ssn,isim,soyisim,blok,hucre_tipi,hucre_no,giris_tarihi,cikis_tarihi);
+                yeni.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+                yeni.setVisible(true);
+                
+        }
+    }//GEN-LAST:event_jTable1MouseClicked
 
     /**
      * @param args the command line arguments

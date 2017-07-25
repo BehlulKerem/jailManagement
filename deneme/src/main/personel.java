@@ -172,7 +172,7 @@ public class personel {
                 aramametini  ="select p.personelno,p.ssn,p.isim,p.soyisim,p.maas from tpersonel g,personel p where p.ssn=g.ssn ";
             else if(pozisyon.equals("Yönetim"))
                 aramametini  ="select p.personelno,p.ssn,p.isim,p.soyisim,p.maas from yopersonel g,personel p where p.ssn=g.ssn ";
-            
+            count2++;
             ps = conn.prepareStatement(aramametini);
 
             System.out.println("-"+isim+"-");
@@ -253,7 +253,7 @@ public class personel {
                 double maas2 = rs.getDouble("maas");
                 int personelno2 = rs.getInt("personelno");
                 //EKLEME YAPILACAK.
-                model.addRow(new Object[]{personelno2,ssn2,isim2,soyisim2,"-",maas2});
+                model.addRow(new Object[]{personelno2,ssn2,isim2,soyisim2,pozisyon,maas2});
             }
 
             ps.close();
@@ -323,5 +323,7 @@ public class personel {
           System.out.println(se);
         } 
     }
+
+
         
 }

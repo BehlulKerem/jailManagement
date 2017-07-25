@@ -68,7 +68,7 @@ public class blok {
             ps.setString(2, blok);
             ps.execute();
         }catch (SQLException se) {
-          
+            System.out.println(se);
         }
     }
 
