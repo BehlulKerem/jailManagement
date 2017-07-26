@@ -9,7 +9,10 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.ParseException;
 import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
@@ -214,7 +217,7 @@ public Connection conn2 = null;
         jPanel2.add(jLabel18);
         jLabel18.setBounds(456, 54, 70, 14);
 
-        jComboBox5.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Tek kişilik hücre", "Çok kişilik hücre" }));
+        jComboBox5.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "-", "Tek kişilik hücre", "Çok kişilik hücre" }));
         jComboBox5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBox5ActionPerformed(evt);
@@ -237,6 +240,11 @@ public Connection conn2 = null;
         jButton4.setBounds(227, 125, 80, 23);
 
         jButton6.setText("Ara");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
         jPanel2.add(jButton6);
         jButton6.setBounds(325, 125, 70, 23);
 
@@ -286,6 +294,7 @@ public Connection conn2 = null;
         jPanel2.add(jLabel16);
         jLabel16.setBounds(240, 93, 54, 14);
 
+        jComboBox9.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-" }));
         jPanel2.add(jComboBox9);
         jComboBox9.setBounds(325, 90, 113, 20);
 
@@ -906,7 +915,7 @@ public Connection conn2 = null;
           Double maas = null;
             try{
                 personelno = Integer.valueOf(jTextField1.getText());
-                ssn = Integer.valueOf(jTextField2.getText());
+                ssn =  Integer.valueOf(jTextField2.getText());
                 maas = Double.valueOf(jTextField6.getText());
             }catch(NumberFormatException e){               
             }
@@ -970,6 +979,37 @@ public Connection conn2 = null;
                 
         }
     }//GEN-LAST:event_jTable1MouseClicked
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+Integer mahkum_ssn = null;
+          Integer hucre_no = null;
+          
+            try{
+                mahkum_ssn = Integer.valueOf(jTextField7.getText());
+                hucre_no = Integer.valueOf(jTextField14.getText());
+               
+            }catch(NumberFormatException e){               
+            }
+            String isim = jTextField8.getText().toString();
+            String soyisim = jTextField11.getText().toString();
+            String hucre_tipi = jComboBox5.getSelectedItem().toString();
+            String giris_tarihi = dateChooserCombo1.getSelectedDate().toString();
+            String cikis_tarihi = dateChooserCombo2.getSelectedDate().toString();
+            String blok = jComboBox9.getSelectedItem().toString();
+            
+              DefaultTableModel model  = (DefaultTableModel) jTable1.getModel();
+            //When clicked all personels list operation button. First delete all current table content.
+            int rowCount = model.getRowCount();
+            //Remove rows one by one from the end of the table
+        
+       mahkum yeni = new mahkum();
+
+    try {
+        yeni.arama(mahkum_ssn,isim,soyisim,blok,hucre_no,hucre_tipi,giris_tarihi,cikis_tarihi,model,rowCount);
+    } catch (ParseException ex) {
+        Logger.getLogger(adminPage.class.getName()).log(Level.SEVERE, null, ex);
+    }
+    }//GEN-LAST:event_jButton6ActionPerformed
 
     /**
      * @param args the command line arguments
