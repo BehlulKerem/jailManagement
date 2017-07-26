@@ -5,6 +5,10 @@
  */
 package main;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -12,12 +16,17 @@ import javax.swing.table.DefaultTableModel;
  * @author MesutKutlu
  */
 public class userPage extends javax.swing.JFrame {
-
+    public Connection conn = null;
     /**
      * Creates new form userPage
      */
     public userPage() {
         initComponents();
+        jLabel23.setVisible(false);
+        jLabel24.setVisible(false);
+        jComboBox5.setVisible(false);
+        jComboBox6.setVisible(false);
+        jLabel20.setText("Revir:");
     }
 
     /**
@@ -75,7 +84,6 @@ public class userPage extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         jLabel15 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
-        jLabel17 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
         jLabel21 = new javax.swing.JLabel();
@@ -86,11 +94,17 @@ public class userPage extends javax.swing.JFrame {
         jTextField20 = new javax.swing.JTextField();
         jTextField21 = new javax.swing.JTextField();
         jTextField22 = new javax.swing.JTextField();
-        jTextField23 = new javax.swing.JTextField();
         jButton5 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
+        jComboBox4 = new javax.swing.JComboBox();
+        jComboBox5 = new javax.swing.JComboBox();
+        jComboBox6 = new javax.swing.JComboBox();
+        jLabel20 = new javax.swing.JLabel();
+        jLabel23 = new javax.swing.JLabel();
+        jLabel24 = new javax.swing.JLabel();
+        jCheckBox1 = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("JailManage");
@@ -99,35 +113,35 @@ public class userPage extends javax.swing.JFrame {
 
         jLabel1.setText("Mahkum SSN:");
         jPanel1.add(jLabel1);
-        jLabel1.setBounds(40, 30, 65, 14);
+        jLabel1.setBounds(40, 30, 84, 15);
 
         jLabel2.setText("İsim:");
         jPanel1.add(jLabel2);
-        jLabel2.setBounds(250, 30, 70, 14);
+        jLabel2.setBounds(250, 30, 70, 15);
 
         jLabel3.setText("Soyisim:");
         jPanel1.add(jLabel3);
-        jLabel3.setBounds(460, 30, 70, 14);
+        jLabel3.setBounds(460, 30, 70, 15);
 
         jLabel4.setText("Hücre Tipi:");
         jPanel1.add(jLabel4);
-        jLabel4.setBounds(40, 70, 80, 14);
+        jLabel4.setBounds(40, 70, 80, 15);
 
         jLabel5.setText("Giriş Tarihi:");
         jPanel1.add(jLabel5);
-        jLabel5.setBounds(250, 70, 53, 14);
+        jLabel5.setBounds(250, 70, 72, 15);
 
         jLabel6.setText("Çıkış Tarihi:");
         jPanel1.add(jLabel6);
-        jLabel6.setBounds(460, 70, 54, 14);
+        jLabel6.setBounds(460, 70, 75, 15);
 
         jLabel7.setText("Hücre No:");
         jPanel1.add(jLabel7);
-        jLabel7.setBounds(40, 110, 80, 14);
+        jLabel7.setBounds(40, 110, 80, 15);
 
         jLabel8.setText("Blok:");
         jPanel1.add(jLabel8);
-        jLabel8.setBounds(250, 110, 70, 14);
+        jLabel8.setBounds(250, 110, 70, 15);
 
         jTextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -135,19 +149,19 @@ public class userPage extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jTextField1);
-        jTextField1.setBounds(130, 30, 90, 20);
+        jTextField1.setBounds(130, 30, 90, 19);
         jPanel1.add(jTextField2);
-        jTextField2.setBounds(130, 70, 90, 20);
+        jTextField2.setBounds(130, 70, 90, 19);
         jPanel1.add(jTextField3);
-        jTextField3.setBounds(130, 110, 90, 20);
+        jTextField3.setBounds(130, 110, 90, 19);
         jPanel1.add(jTextField4);
-        jTextField4.setBounds(330, 30, 100, 20);
+        jTextField4.setBounds(330, 30, 100, 19);
         jPanel1.add(jTextField5);
-        jTextField5.setBounds(330, 70, 100, 20);
+        jTextField5.setBounds(330, 70, 100, 19);
         jPanel1.add(jTextField7);
-        jTextField7.setBounds(540, 30, 80, 20);
+        jTextField7.setBounds(540, 30, 80, 19);
         jPanel1.add(jTextField8);
-        jTextField8.setBounds(540, 70, 80, 20);
+        jTextField8.setBounds(540, 70, 80, 19);
 
         jComboBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -155,7 +169,7 @@ public class userPage extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jComboBox1);
-        jComboBox1.setBounds(310, 110, 70, 20);
+        jComboBox1.setBounds(310, 110, 70, 24);
 
         jButton1.setText("Ara");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -197,7 +211,7 @@ public class userPage extends javax.swing.JFrame {
 
         jLabel9.setText("Blok:");
         jPanel2.add(jLabel9);
-        jLabel9.setBounds(40, 40, 23, 20);
+        jLabel9.setBounds(40, 40, 31, 20);
 
         jComboBox2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -205,7 +219,7 @@ public class userPage extends javax.swing.JFrame {
             }
         });
         jPanel2.add(jComboBox2);
-        jComboBox2.setBounds(110, 40, 60, 20);
+        jComboBox2.setBounds(110, 40, 60, 24);
 
         jButton3.setText("Listele");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -214,7 +228,7 @@ public class userPage extends javax.swing.JFrame {
             }
         });
         jPanel2.add(jButton3);
-        jButton3.setBounds(300, 40, 63, 23);
+        jButton3.setBounds(300, 40, 75, 25);
 
         jLabel10.setText("Revirdeki Mevcut Yatak Sayisi:");
         jPanel2.add(jLabel10);
@@ -228,7 +242,7 @@ public class userPage extends javax.swing.JFrame {
         jPanel2.add(jLabel12);
         jLabel12.setBounds(40, 110, 200, 30);
         jPanel2.add(jTextField6);
-        jTextField6.setBounds(300, 190, 60, 20);
+        jTextField6.setBounds(300, 190, 60, 19);
 
         jTextField9.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -254,7 +268,7 @@ public class userPage extends javax.swing.JFrame {
         jPanel2.add(jLabel14);
         jLabel14.setBounds(40, 260, 240, 30);
         jPanel2.add(jTextField11);
-        jTextField11.setBounds(300, 150, 60, 20);
+        jTextField11.setBounds(300, 150, 60, 19);
 
         jTextField12.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -262,7 +276,7 @@ public class userPage extends javax.swing.JFrame {
             }
         });
         jPanel2.add(jTextField12);
-        jTextField12.setBounds(300, 110, 60, 20);
+        jTextField12.setBounds(300, 110, 60, 19);
 
         jButton4.setText("Tüm Bloklar için Listele");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
@@ -271,17 +285,17 @@ public class userPage extends javax.swing.JFrame {
             }
         });
         jPanel2.add(jButton4);
-        jButton4.setBounds(430, 40, 190, 23);
+        jButton4.setBounds(430, 40, 190, 25);
         jPanel2.add(jTextField13);
-        jTextField13.setBounds(470, 110, 70, 20);
+        jTextField13.setBounds(470, 110, 70, 19);
         jPanel2.add(jTextField14);
-        jTextField14.setBounds(470, 150, 70, 20);
+        jTextField14.setBounds(470, 150, 70, 19);
         jPanel2.add(jTextField15);
-        jTextField15.setBounds(470, 190, 70, 20);
+        jTextField15.setBounds(470, 190, 70, 19);
         jPanel2.add(jTextField16);
-        jTextField16.setBounds(470, 230, 70, 20);
+        jTextField16.setBounds(470, 230, 70, 19);
         jPanel2.add(jTextField17);
-        jTextField17.setBounds(470, 270, 70, 20);
+        jTextField17.setBounds(470, 270, 70, 19);
 
         jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
         jPanel2.add(jSeparator1);
@@ -293,40 +307,47 @@ public class userPage extends javax.swing.JFrame {
 
         jLabel15.setText("Personel No:");
         jPanel3.add(jLabel15);
-        jLabel15.setBounds(30, 20, 61, 14);
+        jLabel15.setBounds(30, 20, 77, 15);
 
         jLabel16.setText("SSN:");
         jPanel3.add(jLabel16);
-        jLabel16.setBounds(30, 50, 70, 14);
-
-        jLabel17.setText("Revir:");
-        jPanel3.add(jLabel17);
-        jLabel17.setBounds(30, 80, 70, 14);
+        jLabel16.setBounds(30, 50, 70, 15);
 
         jLabel18.setText("İsim:");
         jPanel3.add(jLabel18);
-        jLabel18.setBounds(240, 20, 70, 14);
+        jLabel18.setBounds(240, 20, 70, 15);
 
         jLabel19.setText("Soyisim:");
         jPanel3.add(jLabel19);
-        jLabel19.setBounds(240, 50, 70, 14);
+        jLabel19.setBounds(240, 50, 70, 15);
 
         jLabel21.setText("Pozisyon:");
         jPanel3.add(jLabel21);
-        jLabel21.setBounds(440, 20, 90, 14);
+        jLabel21.setBounds(440, 20, 90, 15);
 
         jLabel22.setText("Maaş:");
         jPanel3.add(jLabel22);
-        jLabel22.setBounds(440, 50, 70, 14);
+        jLabel22.setBounds(440, 50, 70, 15);
 
+        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "-", "Sağlık Personeli", "Gardiyan", "Temizlik Personeli", "Yemehane Personeli", "Yönetim" }));
+        jComboBox3.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jComboBox3ItemStateChanged(evt);
+            }
+        });
+        jComboBox3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox3ActionPerformed(evt);
+            }
+        });
         jPanel3.add(jComboBox3);
         jComboBox3.setBounds(520, 20, 90, 20);
         jPanel3.add(jTextField18);
-        jTextField18.setBounds(520, 50, 90, 20);
+        jTextField18.setBounds(520, 50, 90, 19);
         jPanel3.add(jTextField19);
-        jTextField19.setBounds(310, 20, 100, 20);
+        jTextField19.setBounds(310, 20, 100, 19);
         jPanel3.add(jTextField20);
-        jTextField20.setBounds(310, 50, 100, 20);
+        jTextField20.setBounds(310, 50, 100, 19);
 
         jTextField21.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -334,11 +355,9 @@ public class userPage extends javax.swing.JFrame {
             }
         });
         jPanel3.add(jTextField21);
-        jTextField21.setBounds(120, 20, 90, 20);
+        jTextField21.setBounds(120, 20, 90, 19);
         jPanel3.add(jTextField22);
-        jTextField22.setBounds(120, 50, 90, 20);
-        jPanel3.add(jTextField23);
-        jTextField23.setBounds(120, 80, 90, 20);
+        jTextField22.setBounds(120, 50, 90, 19);
 
         jButton5.setText("Ara");
         jButton5.addActionListener(new java.awt.event.ActionListener() {
@@ -347,7 +366,7 @@ public class userPage extends javax.swing.JFrame {
             }
         });
         jPanel3.add(jButton5);
-        jButton5.setBounds(210, 130, 49, 23);
+        jButton5.setBounds(210, 130, 90, 25);
 
         jButton6.setText("Hepsi");
         jButton6.addActionListener(new java.awt.event.ActionListener() {
@@ -356,7 +375,7 @@ public class userPage extends javax.swing.JFrame {
             }
         });
         jPanel3.add(jButton6);
-        jButton6.setBounds(350, 130, 59, 23);
+        jButton6.setBounds(350, 130, 90, 25);
 
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -373,6 +392,39 @@ public class userPage extends javax.swing.JFrame {
 
         jPanel3.add(jScrollPane2);
         jScrollPane2.setBounds(0, 190, 680, 403);
+
+        jComboBox4.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "-" }));
+        jPanel3.add(jComboBox4);
+        jComboBox4.setBounds(120, 80, 36, 24);
+
+        jComboBox5.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "-" }));
+        jPanel3.add(jComboBox5);
+        jComboBox5.setBounds(310, 80, 36, 24);
+
+        jComboBox6.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "-" }));
+        jPanel3.add(jComboBox6);
+        jComboBox6.setBounds(520, 80, 36, 24);
+
+        jLabel20.setText("jLabel20");
+        jPanel3.add(jLabel20);
+        jLabel20.setBounds(30, 80, 53, 15);
+
+        jLabel23.setText("jLabel23");
+        jPanel3.add(jLabel23);
+        jLabel23.setBounds(240, 80, 53, 15);
+
+        jLabel24.setText("jLabel24");
+        jPanel3.add(jLabel24);
+        jLabel24.setBounds(440, 80, 53, 15);
+
+        jCheckBox1.setText("Baş Gardiyan");
+        jCheckBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBox1ActionPerformed(evt);
+            }
+        });
+        jPanel3.add(jCheckBox1);
+        jCheckBox1.setBounds(20, 120, 106, 23);
 
         jTabbedPane1.addTab("Personel", jPanel3);
 
@@ -423,7 +475,31 @@ public class userPage extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        // TODO add your handling code here:
+        
+          Integer personelno = null;
+          Integer ssn = null;
+          Double maas = null;
+            try{
+                personelno = Integer.valueOf(jTextField21.getText());
+                ssn =  Integer.valueOf(jTextField22.getText());
+                maas = Double.valueOf(jTextField18.getText());
+            }catch(NumberFormatException e){               
+            }
+            String isim = jTextField19.getText().toString();
+            String soyisim = jTextField20.getText().toString();
+            String pozisyon = jComboBox3.getSelectedItem().toString();
+            String blok = jComboBox4.getSelectedItem().toString();
+            String camasirhane = jComboBox5.getSelectedItem().toString();
+            String revir = jComboBox6.getSelectedItem().toString();
+            Boolean basmi = jCheckBox1.isSelected(); 
+              DefaultTableModel model  = (DefaultTableModel) jTable2.getModel();
+            //When clicked all personels list operation button. First delete all current table content.
+            int rowCount = model.getRowCount();
+            //Remove rows one by one from the end of the table
+        
+       personel yeni = new personel();
+
+       yeni.arama(personelno,ssn,isim,soyisim,pozisyon,maas,blok,camasirhane,revir,basmi,model,rowCount);// TODO add your handling code here:
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jTextField21ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField21ActionPerformed
@@ -450,6 +526,98 @@ public class userPage extends javax.swing.JFrame {
         pers.hepsi(model, rowCount);
         
     }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jCheckBox1ActionPerformed
+
+    private void jComboBox3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBox3ActionPerformed
+
+    private void jComboBox3ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBox3ItemStateChanged
+         try{      
+            String status = jComboBox3.getSelectedItem().toString();
+            jdbc sub = new jdbc();
+            conn = sub.connectToDatabaseOrDie();
+            Statement st = null;
+            ResultSet rs = null;
+            st = conn.createStatement();
+        if(status.equals("Gardiyan")){
+            jComboBox4.removeAllItems();
+            jComboBox5.removeAllItems();
+            jComboBox6.removeAllItems();
+            jLabel23.setVisible(true);
+            jLabel24.setVisible(true);
+            jLabel24.setText("Revir:");
+            jLabel23.setText("Çamaşırhane:");
+            jLabel20.setText("Blok koridor:");
+            jComboBox5.setVisible(true);
+            jComboBox6.setVisible(true);
+            jComboBox4.addItem(" ");
+            jComboBox5.addItem(" ");
+            jComboBox6.addItem(" ");
+
+            rs = st.executeQuery("select * from blok;");
+                 while ( rs.next()){
+                   jComboBox4.addItem(rs.getString("blok_ismi"));
+                 }
+                 rs = st.executeQuery("select * from camasirhane;");
+                 while ( rs.next()){
+                   jComboBox5.addItem(rs.getString("blok_ismi"));
+                 }
+                 rs = st.executeQuery("select * from revir;");
+                 while ( rs.next()){
+                   jComboBox6.addItem(rs.getString("blok_ismi"));
+                 }
+
+        }
+        else if(status.equals("Sağlık Personeli")){
+            jComboBox4.removeAllItems();
+            jComboBox5.setVisible(false);
+            jComboBox6.setVisible(false);
+            jLabel20.setText("Revir:");
+            jLabel23.setVisible(false);
+            jLabel24.setVisible(false);
+            jComboBox4.addItem(" ");
+            rs = st.executeQuery("select * from revir;");
+                 while ( rs.next()){
+                   jComboBox4.addItem(rs.getString("blok_ismi"));
+                 }
+
+        }
+        else if(status.equals("Yemekhane Personeli")){
+             jComboBox5.setVisible(false);
+            jComboBox6.setVisible(false);
+            jComboBox4.removeAllItems();
+            jLabel20.setText("Yemekhane:");
+            jLabel23.setVisible(false);
+            jLabel24.setVisible(false);
+            jComboBox4.addItem(" ");
+              rs = st.executeQuery("select * from yemekhane;");
+                 while ( rs.next()){
+                   jComboBox4.addItem(rs.getString("blok_ismi"));
+                 }
+        }
+        else if(status.equals("Temizlik Personeli")){
+             jComboBox5.setVisible(false);
+            jComboBox6.setVisible(false);
+            jComboBox4.removeAllItems();
+            jLabel20.setText("Çamaşırhane:");
+            jLabel23.setVisible(false);
+            jLabel24.setVisible(false);
+            jComboBox4.addItem(" ");
+              rs = st.executeQuery("select * from camasirhane;");
+                 while ( rs.next()){
+                   jComboBox4.addItem(rs.getString("blok_ismi"));
+                 }
+        }
+            
+        }catch (SQLException se) {
+            System.err.println("Threw a SQLException creating the list of blogs.");
+            System.err.println(se.getMessage());
+        }        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBox3ItemStateChanged
 
     /**
      * @param args the command line arguments
@@ -493,9 +661,13 @@ public class userPage extends javax.swing.JFrame {
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
+    private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JComboBox jComboBox1;
     private javax.swing.JComboBox jComboBox2;
     private javax.swing.JComboBox jComboBox3;
+    private javax.swing.JComboBox jComboBox4;
+    private javax.swing.JComboBox jComboBox5;
+    private javax.swing.JComboBox jComboBox6;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -504,12 +676,14 @@ public class userPage extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
-    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel23;
+    private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -541,7 +715,6 @@ public class userPage extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField20;
     private javax.swing.JTextField jTextField21;
     private javax.swing.JTextField jTextField22;
-    private javax.swing.JTextField jTextField23;
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
     private javax.swing.JTextField jTextField5;
