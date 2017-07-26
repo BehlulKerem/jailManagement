@@ -5,6 +5,9 @@
  */
 package main;
 
+import java.text.ParseException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -159,18 +162,22 @@ public class mahkumDetails extends javax.swing.JFrame {
             edit = true;
         }
         else{
-            mahkum yeni = new mahkum();
-            yeni.edit(this.ssn,this.isim,this.soyisim,this.blok,this.hucre_tipi,this.hucre_no,this.giris_tarihi,this.cikis_tarihi,
-                   Integer.valueOf(jTextField3.getText()), jTextField1.getText(),jTextField2.getText(),jTextField4.getText(),
-                   jTextField5.getText(),Integer.valueOf(jTextField8.getText()),jTextField6.getText(),jTextField7.getText());
-            jTextField1.setEditable(false);
-            jTextField2.setEditable(false);
-            jTextField3.setEditable(false);
-            jTextField4.setEditable(false);
-            jTextField5.setEditable(false);
-            jTextField6.setEditable(false);
-            jButton1.setText("Düzenle");
-            edit = false;
+            try {
+                mahkum yeni = new mahkum();
+                yeni.edit(this.ssn,this.isim,this.soyisim,this.blok,this.hucre_tipi,this.hucre_no,this.giris_tarihi,this.cikis_tarihi,
+                        Integer.valueOf(jTextField3.getText()), jTextField1.getText(),jTextField2.getText(),jTextField4.getText(),
+                        jTextField5.getText(),Integer.valueOf(jTextField8.getText()),jTextField6.getText(),jTextField7.getText());
+                jTextField1.setEditable(false);
+                jTextField2.setEditable(false);
+                jTextField3.setEditable(false);
+                jTextField4.setEditable(false);
+                jTextField5.setEditable(false);
+                jTextField6.setEditable(false);
+                jButton1.setText("Düzenle");
+                edit = false;
+            } catch (ParseException ex) {
+                Logger.getLogger(mahkumDetails.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }       
     }//GEN-LAST:event_jButton1ActionPerformed
     void infos(Integer ssn, String isim, String soyisim, String blok, String hucre_tipi, Integer hucre_no, String giris_tarihi, String cikis_tarihi) {

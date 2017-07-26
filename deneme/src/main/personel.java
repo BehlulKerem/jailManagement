@@ -162,6 +162,7 @@ public class personel {
             int count=1,count2=1;
             if(pozisyon.equals("-"))
                 aramametini  ="select * from personel p where ";
+            else{
             if(pozisyon.equals("Gardiyan"))
                 aramametini  ="select p.personelno,p.ssn,p.isim,p.soyisim,p.maas from gpersonel g,personel p where p.ssn=g.ssn ";
             else if(pozisyon.equals("Sağlık Personeli"))
@@ -173,12 +174,14 @@ public class personel {
             else if(pozisyon.equals("Yönetim"))
                 aramametini  ="select p.personelno,p.ssn,p.isim,p.soyisim,p.maas from yopersonel g,personel p where p.ssn=g.ssn ";
             count2++;
+            }
             ps = conn.prepareStatement(aramametini);
 
-            System.out.println("-"+isim+"-");
+            System.out.println("-"+maas+"-");
             if(personelno==null);
             else{
-                aramametini+="and ";
+                if(count2!=1)
+                    aramametini+="and ";
                 aramametini+="p.personelno=? ";
                 ps = conn.prepareStatement(aramametini);
                 count2++;
@@ -222,7 +225,7 @@ public class personel {
             }
             if(ssn==null);
             else{
-                ps.setInt(count, personelno);
+                ps.setInt(count, ssn);
                 count++;
             }
             if(isim.equals(""));
